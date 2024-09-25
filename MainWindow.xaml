@@ -1,0 +1,23 @@
+﻿<Window x:Class="WPF_MVVM_SPA_Template.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WPF_MVVM_SPA_Template"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <DockPanel>
+        <!-- Barra de navegació lateral estil SPA amb ListBox -->
+        <ListBox DockPanel.Dock="Left" Width="100" Background="#2C3E50" Foreground="White" BorderThickness="0"
+             SelectedValue="{Binding SelectedView, Mode=TwoWay}" SelectedValuePath="Tag">
+            <ListBoxItem Content="Opció 1" Tag="Option1" FontSize="16" Padding="10" 
+                         HorizontalContentAlignment="Left" Style="{StaticResource ModernSidebarStyle}"/>
+            <ListBoxItem Content="Opció 2" Tag="Option2" FontSize="16" Padding="10" 
+                         HorizontalContentAlignment="Left" Style="{StaticResource ModernSidebarStyle}"/>
+        </ListBox>
+        <!-- Secció de contingut dinàmic (Grid) -->
+        <Grid Name="MainContent" Background="White" Margin="10">
+            <ContentControl Content="{Binding CurrentView}" />
+        </Grid>
+    </DockPanel>
+</Window>

@@ -11,23 +11,31 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <DataGrid ItemsSource="{Binding Courses}" 
-                  SelectedItem="{Binding SelectedCourse}" 
+        <DataGrid ItemsSource="{Binding Clients}" 
+                  SelectedItem="{Binding SelectedClient}" 
                   IsReadOnly="True"
                   AutoGenerateColumns="False" 
                   Grid.Row="0">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Id" Binding="{Binding Id}" Width="Auto" />
-                <DataGridTextColumn Header="Nom" Binding="{Binding Name}" Width="*" />
+                <DataGridTextColumn Header="Nom" Binding="{Binding Nom}" Width="*" />
+                <DataGridTextColumn Header="Cognoms" Binding="{Binding Cognoms}" Width="*"/>
+                <DataGridTextColumn Header="Email" Binding="{Binding Email}" Width="200"/>
+                <DataGridTextColumn Header="Telèfon" Binding="{Binding Telefon}" Width="100"/>
+                <DataGridTextColumn Header="Data d'alta" Binding="{Binding DataAlta,StringFormat='{}{0:dd/MM/yyyy}'}" Width="*"/>
+
             </DataGrid.Columns>
         </DataGrid>
 
         <!-- Botons i controls d'edició -->
         <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right">
-            <Button Content="Afegir" Command="{Binding AddCourseCommand}" Margin="5" Padding="10,5" 
+            <Button Content="Afegir" Command="{Binding AddClientCommand}" Margin="5" Padding="10,5" 
                     Style="{StaticResource ModernPrimaryButtonStyle}"/>
-            <Button Content="Eliminar" Command="{Binding DelCourseCommand}" IsEnabled="{Binding SelectedCourse}" 
+            <Button Content="Eliminar" Command="{Binding DelClientCommand}" IsEnabled="{Binding SelectedClient}" 
                     Margin="5" Padding="10,5" Style="{StaticResource ModernSecundaryButtonStyle}"/>
         </StackPanel>
+        
+
+
     </Grid>
 </UserControl>

@@ -1,4 +1,5 @@
 ﻿using System.Windows.Controls;
+using WPF_MVVM_SPA_Template.ViewModels;
 
 namespace WPF_MVVM_SPA_Template.Views
 {
@@ -8,6 +9,8 @@ namespace WPF_MVVM_SPA_Template.Views
         public Option2View()
         {
             InitializeComponent();
+            
+            
         }
     }
 }

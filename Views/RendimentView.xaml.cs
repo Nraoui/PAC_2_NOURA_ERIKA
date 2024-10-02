@@ -12,23 +12,17 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using WPF_MVVM_SPA_Template.ViewModels;
 
 namespace WPF_MVVM_SPA_Template.Views
 {
     /// <summary>
-    /// Interaction logic for ClientFormView.xaml
+    /// Interaction logic for RendimentView.xaml
     /// </summary>
-    public partial class ClientFormView : UserControl
+    public partial class RendimentView : UserControl
     {
-       
-        public ClientFormView()
+        public RendimentView()
         {
             InitializeComponent();
-            
-            
         }
-
-       
     }
 }

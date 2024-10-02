@@ -11,6 +11,9 @@ namespace WPF_MVVM_SPA_Template.ViewModels
         // ViewModels de les diferents opcions
         public Option1ViewModel Option1VM { get; set; }
         public Option2ViewModel Option2VM { get; set; }
+        
+        public ClientFormViewModel ClientFormVM { get; set; }
+        
 
 
         // Propietat que conté la vista actual (és un objecte)

@@ -92,8 +92,12 @@ namespace WPF_MVVM_SPA_Template.ViewModels
                 }
             }
 
-        
-        
+        public string GetNomById(int id)
+        {
+            var client = Clients.FirstOrDefault(c => c.Id == id);
+            return client != null ? client.Name : string.Empty;
+        }
+
 
         // Això és essencial per fer funcionar el Binding de propietats entre Vistes i ViewModels
         public event PropertyChangedEventHandler? PropertyChanged;

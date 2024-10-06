@@ -14,6 +14,8 @@
                          HorizontalContentAlignment="Left" Style="{StaticResource ModernSidebarStyle}"/>
             <ListBoxItem Content="Clients" Tag="Option2" FontSize="16" Padding="10" 
                          HorizontalContentAlignment="Left" Style="{StaticResource ModernSidebarStyle}"/>
+            <ListBoxItem Content="Info. Banc" Tag="Option3" FontSize="16" Padding="10" 
+                         HorizontalContentAlignment="Left" Style="{StaticResource ModernSidebarStyle}"/>
         </ListBox>
         <!-- Secció de contingut dinàmic (Grid) -->
         <Grid Name="MainContent" Background="White" Margin="10">

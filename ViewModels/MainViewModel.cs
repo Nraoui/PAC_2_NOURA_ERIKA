@@ -11,9 +11,10 @@ namespace WPF_MVVM_SPA_Template.ViewModels
         // ViewModels de les diferents opcions
         public Option1ViewModel Option1VM { get; set; }
         public Option2ViewModel Option2VM { get; set; }
-        
         public ClientFormViewModel ClientFormVM { get; set; }
-        
+        public Option3ViewModel Option3VM { get; set; }
+        public BankInfoFormsViewModel BankInfoFormsVM { get; set; }
+
 
 
         // Propietat que conté la vista actual (és un objecte)
@@ -42,6 +43,7 @@ namespace WPF_MVVM_SPA_Template.ViewModels
             // Inicialitzem els diferents ViewModels
             Option1VM = new Option1ViewModel(this);
             Option2VM = new Option2ViewModel(this);
+            Option3VM = new Option3ViewModel(this);
             // Mostra la vista principal inicialment
             SelectedView = "Option1";
             ChangeView();
@@ -54,6 +56,7 @@ namespace WPF_MVVM_SPA_Template.ViewModels
             {
                 case "Option1": CurrentView = new Option1View { DataContext = Option1VM }; break;
                 case "Option2": CurrentView = new Option2View { DataContext = Option2VM }; break;
+                case "Option3": CurrentView = new Option3View { DataContext = Option3VM }; break;
             }
         }
 

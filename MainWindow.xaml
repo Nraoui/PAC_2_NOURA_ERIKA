@@ -10,7 +10,7 @@
         <!-- Barra de navegació lateral estil SPA amb ListBox -->
         <ListBox DockPanel.Dock="Left" Width="100" Background="#2C3E50" Foreground="White" BorderThickness="0"
              SelectedValue="{Binding SelectedView, Mode=TwoWay}" SelectedValuePath="Tag">
-            <ListBoxItem Content="Inici" Tag="Option1" FontSize="16" Padding="10" 
+            <ListBoxItem Content="Welcome" Tag="Option1" FontSize="16" Padding="10" 
                          HorizontalContentAlignment="Left" Style="{StaticResource ModernSidebarStyle}"/>
             <ListBoxItem Content="Clients" Tag="Option2" FontSize="16" Padding="10" 
                          HorizontalContentAlignment="Left" Style="{StaticResource ModernSidebarStyle}"/>

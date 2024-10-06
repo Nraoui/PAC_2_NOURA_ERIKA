@@ -4,6 +4,9 @@ using System.Runtime.CompilerServices;
 using System.Windows;
 using WPF_MVVM_SPA_Template.Models;
 using WPF_MVVM_SPA_Template.Views;
+//JSON serialization package
+using System.IO;
+using System.Text.Json;
 
 namespace WPF_MVVM_SPA_Template.ViewModels
 {
@@ -25,11 +28,12 @@ namespace WPF_MVVM_SPA_Template.ViewModels
             set { _selectedInfo = value; OnPropertyChanged(); }
         }
 
-        public int IBCId;
-
         public RelayCommand AddBCInfoCommand { get; set; }
         public RelayCommand RemoveBCInfoCommand { get; set; }
         public RelayCommand EditBCInfoCommand { get; set; }
+        //Serialize data
+        public RelayCommand ExportToJsonCommand { get; set; } 
+        public RelayCommand LoadFromJsonCommand { get; set; }
 
 
 
@@ -41,10 +45,47 @@ namespace WPF_MVVM_SPA_Template.ViewModels
 
             BankClientInfo.Add(new BankClientInfo { Id = 1, IBAN = "DE44 1234 1234 1234 1234 00", SavedIncome = 20000, Debt = 1654, Pin = 2323, ClientName = _option2ViewModel.GetNomById(1) });
             BankClientInfo.Add(new BankClientInfo { Id = 2, IBAN = "GB29 NWBK 6016 1331 9268 19", SavedIncome = 5000, Debt = 0, Pin = 1111, ClientName = _option2ViewModel.GetNomById(2) });
+            LoadFromJson();
 
             AddBCInfoCommand = new RelayCommand(x => AddBCInfo());
             EditBCInfoCommand = new RelayCommand(x => EditBCInfo());
             RemoveBCInfoCommand = new RelayCommand(x => RemBCInfo());
+            ExportToJsonCommand = new RelayCommand(x => SaveToJson());
+            LoadFromJsonCommand = new RelayCommand(x => LoadFromJson());
+        }
+
+        private void SaveToJson()
+        {
+            var options = new JsonSerializerOptions { WriteIndented = true };
+            var jsonData = JsonSerializer.Serialize(BankClientInfo, options);
+
+            // Specify the file path
+            var filePath = "BankClientInfo.json";
+            File.WriteAllText(filePath, jsonData);
+
+            MessageBox.Show("Data saved to JSON successfully!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+
+        private void LoadFromJson()
+        {
+            var filePath = "BankClientInfo.json";
+            if (File.Exists(filePath))
+            {
+                var jsonData = File.ReadAllText(filePath);
+                var bankClientInfoFromJson = JsonSerializer.Deserialize<ObservableCollection<BankClientInfo>>(jsonData);
+
+                // Replace existing collection with the loaded one
+                BankClientInfo.Clear();
+                foreach (var item in bankClientInfoFromJson)
+                {
+                    BankClientInfo.Add(item);
+                }
+
+            }
+            else
+            {
+                MessageBox.Show("No JSON file found to load!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         private void AddBCInfo()

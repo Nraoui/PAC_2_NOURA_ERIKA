@@ -51,6 +51,7 @@
         <Setter Property="BorderBrush" Value="#D5D8DC"/>
         <Setter Property="BorderThickness" Value="1"/>
         <Setter Property="HorizontalAlignment" Value="Stretch"/>
+
     </Style>
 
     <!-- Estil modern per a DatePicker -->

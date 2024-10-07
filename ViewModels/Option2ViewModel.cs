@@ -1,8 +1,12 @@
 ﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.IO;
 using System.Runtime.CompilerServices;
+using System.Text.Json;
+using System.Windows;
 using WPF_MVVM_SPA_Template.Models;
 using WPF_MVVM_SPA_Template.Views;
+
 
 namespace WPF_MVVM_SPA_Template.ViewModels
 {
@@ -28,6 +32,9 @@ namespace WPF_MVVM_SPA_Template.ViewModels
         public RelayCommand AddClientCommand { get; set; }
         public RelayCommand DelClientCommand { get; set; }
         public RelayCommand EditClientCommand {  get; set; }
+        public RelayCommand ExportToJsonCommand { get; set; }
+        public RelayCommand LoadFromJsonCommand { get; set; }
+
 
 
 
@@ -43,13 +50,16 @@ namespace WPF_MVVM_SPA_Template.ViewModels
             Clients.Add(new Client { Id = 4, Dni = "N4589623M", Name = "Anna", Surnames = "Garcia ", Email = "anna.garcia@gmail.com", PhoneNumber = "612456321", RegestrationDate = new DateTime(2024, 6, 30) });
             Clients.Add(new Client { Id = 5, Dni = "M1235987P",Name = "Oriol", Surnames = "Marti ", Email = "oriol.marti@gmail.com", PhoneNumber = "613249562", RegestrationDate = new DateTime(2024, 7, 14) });
             Clients.Add(new Client { Id = 6, Dni = "R4598623U",Name = "Núria", Surnames = "López ", Email = "nuria.lopez@gmail.com", PhoneNumber = "613456217", RegestrationDate = new DateTime(2024, 8, 26) });
-
+            LoadFromJson();
+           
             // Inicialitzem els diferents commands disponibles (accions)
             AddClientCommand = new RelayCommand(x => AddClient());
             DelClientCommand = new RelayCommand(x => DelClient());
             EditClientCommand = new RelayCommand(x => EditClient());
+            ExportToJsonCommand = new RelayCommand(x => SaveToJson());
+            LoadFromJsonCommand = new RelayCommand(x => LoadFromJson());
 
-            
+
 
 
 
@@ -92,8 +102,42 @@ namespace WPF_MVVM_SPA_Template.ViewModels
                 }
             }
 
-        
-        
+        private void SaveToJson()
+        {
+            var options = new JsonSerializerOptions { WriteIndented = true };
+            var jsonData = JsonSerializer.Serialize(Clients, options);
+
+            // Specify the file path
+            var filePath = "ClientsData.json";
+            File.WriteAllText(filePath, jsonData);
+
+            MessageBox.Show("Data saved to JSON successfully!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+
+        private void LoadFromJson()
+        {
+            var filePath = "ClientsData.json";
+            if (File.Exists(filePath))
+            {
+                var jsonData = File.ReadAllText(filePath);
+                var ClientDataFromJson = JsonSerializer.Deserialize<ObservableCollection<Client>>(jsonData);
+
+                // Replace existing collection with the loaded one
+                Clients.Clear();
+                foreach (var item in ClientDataFromJson)
+                {
+                    Clients.Add(item);
+                }
+
+            }
+            else
+            {
+                MessageBox.Show("No JSON file found to load!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+
+
 
         // Això és essencial per fer funcionar el Binding de propietats entre Vistes i ViewModels
         public event PropertyChangedEventHandler? PropertyChanged;

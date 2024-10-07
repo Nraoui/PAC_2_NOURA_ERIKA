@@ -13,7 +13,7 @@ namespace WPF_MVVM_SPA_Template.ViewModels
         public Option2ViewModel Option2VM { get; set; }
         
         public ClientFormViewModel ClientFormVM { get; set; }
-        
+
 
 
         // Propietat que conté la vista actual (és un objecte)

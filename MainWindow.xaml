@@ -7,16 +7,37 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <DockPanel>
+        
         <!-- Barra de navegació lateral estil SPA amb ListBox -->
-        <ListBox DockPanel.Dock="Left" Width="100" Background="#2C3E50" Foreground="White" BorderThickness="0"
+        <ListBox DockPanel.Dock="Left" Width="100" Style="{DynamicResource ModernBarStyle}"
              SelectedValue="{Binding SelectedView, Mode=TwoWay}" SelectedValuePath="Tag">
             <ListBoxItem Content="Welcome" Tag="Option1" FontSize="16" Padding="10" 
-                         HorizontalContentAlignment="Left" Style="{StaticResource ModernSidebarStyle}"/>
+                         HorizontalContentAlignment="Left" Style="{DynamicResource ModernSidebarStyle}"/>
             <ListBoxItem Content="Clients" Tag="Option2" FontSize="16" Padding="10" 
-                         HorizontalContentAlignment="Left" Style="{StaticResource ModernSidebarStyle}"/>
+                         HorizontalContentAlignment="Left" Style="{DynamicResource ModernSidebarStyle}"/>
             <ListBoxItem Content="Info. Banc" Tag="Option3" FontSize="16" Padding="10" 
-                         HorizontalContentAlignment="Left" Style="{StaticResource ModernSidebarStyle}"/>
+                         HorizontalContentAlignment="Left" Style="{DynamicResource ModernSidebarStyle}"/>
+            <ListBoxItem IsEnabled="False" FontSize="16" Padding="10" Height="200"
+                         HorizontalContentAlignment="Left" Style="{DynamicResource ModernSidebarStyle}"/>
+            
+            <ListBoxItem Tag="Option4" Style="{DynamicResource ModernSidebarStyle}" HorizontalAlignment="Left">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Button Tag="ChangeTheme" Command="{Binding ChangeThemeCommand}" HorizontalContentAlignment="Left" Width="Auto" Grid.Column="0" Background="Transparent">
+                        <Image Source="Images/ChangeTheme.png" Width="Auto" Height="20"/>
+                    </Button>
+                    <Button Tag="GetInfo" FontSize="16" HorizontalContentAlignment="Left" Width="Auto"  Grid.Column="1" Background="Transparent">
+                        <Image Source="Images/Info_Black.png" Width="Auto" Height="20" Grid.Column="0"/>
+                    </Button>
+                </Grid>
+            </ListBoxItem>
         </ListBox>
+
+        
+                
         <!-- Secció de contingut dinàmic (Grid) -->
         <Grid Name="MainContent" Background="White" Margin="10">
             <ContentControl Content="{Binding CurrentView}" />

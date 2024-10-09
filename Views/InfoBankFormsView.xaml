@@ -36,10 +36,11 @@
         <TextBlock Name="InfoId" Grid.Column="1" Grid.Row="0" Text="{Binding NewInfo.Id}"  HorizontalAlignment="Stretch" Margin="5" TextWrapping="Wrap" VerticalAlignment="Stretch"/>
         <TextBlock Name="Client" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Stretch" Text="{Binding NewInfo.ClientName}" Margin="5" TextWrapping="Wrap" VerticalAlignment="Stretch"/>
         <TextBox Name="IBAN" Grid.Column="1" Grid.Row="2" HorizontalAlignment="Stretch" Text="{Binding NewInfo.IBAN}" Margin="5" TextWrapping="Wrap" VerticalAlignment="Stretch"/>
+        <Label Content="{Binding IBANError}" Foreground="Red" Grid.Row="2" Grid.Column="1" 
+    Visibility="{Binding IBANErrorVisibility}"/>
         <TextBox Name="Income" Grid.Column="1" Grid.Row="3" HorizontalAlignment="Stretch" Text="{Binding NewInfo.SavedIncome}" Margin="5" TextWrapping="Wrap" VerticalAlignment="Stretch"/>
         <TextBox Name="Debt" Grid.Column="1" Grid.Row="4" HorizontalAlignment="Stretch" Text="{Binding NewInfo.Debt}" Margin="5" TextWrapping="Wrap" VerticalAlignment="Stretch"/>
-        <TextBox Name="Pin" Grid.Column="1" Grid.Row="5" HorizontalAlignment="Stretch" Text="{Binding NewInfo.Pin}" Margin="5" TextWrapping="Wrap" VerticalAlignment="Stretch"/>
-
+        <TextBox Name="Pin" Grid.Column="1" Grid.Row="5" HorizontalAlignment="Stretch" Text="{Binding NewInfo.Pin}" Margin="5" TextWrapping="Wrap" VerticalAlignment="Stretch" Foreground="{Binding PinErrorForeground}"/>
 
     </Grid>
 </UserControl>

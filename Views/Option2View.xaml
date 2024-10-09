@@ -28,14 +28,14 @@
                 <DataGridTemplateColumn Header="Edit" Width="*">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Button Content="Edit" Command="{Binding DataContext.EditClientCommand, RelativeSource={RelativeSource AncestorType=UserControl}}" CommandParameter="{Binding}" />
+                            <Button Content="Edit" Command="{Binding DataContext.EditClientCommand, RelativeSource={RelativeSource AncestorType=UserControl}}" CommandParameter="{Binding}" Style="{DynamicResource ModernPrimaryButtonStyle}" />
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
                 <DataGridTemplateColumn Header="Delete" Width="*">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Button Content="Delete" Command="{Binding DataContext.DelClientCommand, RelativeSource={RelativeSource AncestorType=UserControl}}" CommandParameter="{Binding}" />
+                            <Button Content="Delete" Command="{Binding DataContext.DelClientCommand, RelativeSource={RelativeSource AncestorType=UserControl}}" CommandParameter="{Binding}" Background="#FF790000" Foreground="White"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
@@ -51,9 +51,11 @@
         <!-- Botons i controls d'edició -->
         <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right">
             <Button Content="Afegir" Command="{Binding AddClientCommand}" Margin="5" Padding="10,5" 
-                    Style="{StaticResource ModernSecundaryButtonStyle}" />
+                    Style="{DynamicResource ModernSecundaryButtonStyle}" />
             <Button Content="Veure Rendiment"
-            IsEnabled="{Binding SelectedClient}" Margin="5" Padding="10,5" Style="{StaticResource ModernPrimaryButtonStyle}" />
+            IsEnabled="{Binding SelectedClient}" Margin="5" Padding="10,5" Style="{DynamicResource ModernPrimaryButtonStyle}" />
+            <Button Content="Export to JSON" Command="{Binding ExportToJsonCommand}" Margin="5" Padding="10,5"  Style="{DynamicResource ModernSideButtonStyle}"/>
+            <Button Content="Load from JSON" Command="{Binding LoadFromJsonCommand}" Margin="5" Padding="10,5" Style="{DynamicResource ModernSideButtonStyle}"/>
         </StackPanel>
         
 

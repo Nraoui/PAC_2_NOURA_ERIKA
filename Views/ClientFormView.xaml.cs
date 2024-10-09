@@ -20,13 +20,24 @@ namespace WPF_MVVM_SPA_Template.Views
     /// Interaction logic for ClientFormView.xaml
     /// </summary>
     public partial class ClientFormView : UserControl
+
     {
-       
+        private MainViewModel _mainViewModel;
+      
+        
+        
         public ClientFormView()
         {
             InitializeComponent();
+            _mainViewModel = (MainViewModel)Application.Current.MainWindow.DataContext;
             
-            
+
+
+
+
+
+
+
         }
 
        

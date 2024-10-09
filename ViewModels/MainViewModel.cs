@@ -1,5 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Windows;
+using System.Windows.Input;
 using WPF_MVVM_SPA_Template.Views;
 
 namespace WPF_MVVM_SPA_Template.ViewModels
@@ -11,9 +13,11 @@ namespace WPF_MVVM_SPA_Template.ViewModels
         // ViewModels de les diferents opcions
         public Option1ViewModel Option1VM { get; set; }
         public Option2ViewModel Option2VM { get; set; }
+        
         public ClientFormViewModel ClientFormVM { get; set; }
         public Option3ViewModel Option3VM { get; set; }
         public BankInfoFormsViewModel BankInfoFormsVM { get; set; }
+
 
 
 
@@ -38,6 +42,8 @@ namespace WPF_MVVM_SPA_Template.ViewModels
             }
         }
 
+        public RelayCommand ChangeThemeCommand { get; set; }
+
         public MainViewModel()
         {
             // Inicialitzem els diferents ViewModels
@@ -47,6 +53,8 @@ namespace WPF_MVVM_SPA_Template.ViewModels
             // Mostra la vista principal inicialment
             SelectedView = "Option1";
             ChangeView();
+
+            ChangeThemeCommand = new RelayCommand(x => ChangeTheme());
         }
 
         // Canvi de Vista
@@ -58,6 +66,31 @@ namespace WPF_MVVM_SPA_Template.ViewModels
                 case "Option2": CurrentView = new Option2View { DataContext = Option2VM }; break;
                 case "Option3": CurrentView = new Option3View { DataContext = Option3VM }; break;
             }
+        }
+
+
+        private void ChangeTheme()
+        {
+            var currentTheme = Application.Current.Resources.MergedDictionaries[0].Source.ToString();
+            string? altTheme;
+            //MessageBox.Show($"Current Theme: {currentTheme}");
+            if (currentTheme.Contains("DarkTheme.xaml"))
+            {
+                altTheme = "ModernTheme.xaml";
+            }
+            else
+            {
+                altTheme = "DarkTheme.xaml";
+            }
+            //MessageBox.Show($"Switching to Theme: {altTheme}");
+            ResourceDictionary resourceDictionary = new ResourceDictionary
+            {
+                Source = new Uri($"pack://application:,,,/Views/Themes/{altTheme}", UriKind.Absolute)
+            };
+            Application.Current.Resources.MergedDictionaries.Clear();
+            Application.Current.Resources.MergedDictionaries.Add(resourceDictionary);
+
+            
         }
 
         // Això és essencial per fer funcionar el Binding de propietats entre Vistes i ViewModels

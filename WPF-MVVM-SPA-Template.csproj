@@ -10,8 +10,20 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Images\ChangeTheme.png" />
+    <None Remove="Images\info_black.png" />
+    <None Remove="Images\info_white.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="LiveCharts.Wpf" Version="0.9.7" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Images\ChangeTheme.png" />
+    <Resource Include="Images\info_black.png" />
+    <Resource Include="Images\info_white.png" />
   </ItemGroup>
 
 </Project>

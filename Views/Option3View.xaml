@@ -25,14 +25,14 @@
                 <DataGridTemplateColumn Width="Auto">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Button Content="Edit" Command="{Binding DataContext.EditBCInfoCommand, RelativeSource={RelativeSource AncestorType=UserControl}}" CommandParameter="{Binding}"/>
+                            <Button Content="Edit" Command="{Binding DataContext.EditBCInfoCommand, RelativeSource={RelativeSource AncestorType=UserControl}}" CommandParameter="{Binding}" Style="{DynamicResource ModernPrimaryButtonStyle}"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
-                <DataGridTemplateColumn Width="Auto">
+                <DataGridTemplateColumn Width="*">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Button Content="Delete" Command="{Binding DataContext.RemoveBCInfoCommand, RelativeSource={RelativeSource AncestorType=UserControl}}" CommandParameter="{Binding}"/>
+                            <Button Content="Delete" Command="{Binding DataContext.RemoveBCInfoCommand, RelativeSource={RelativeSource AncestorType=UserControl}}" CommandParameter="{Binding}" Background="#FF790000" Foreground="White"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
@@ -40,13 +40,14 @@
         </DataGrid>
 
         <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right">
-            <Button Content="Export to JSON" Command="{Binding ExportToJsonCommand}" Margin="5" Padding="10,5" />
-            <Button Content="Load from JSON" Command="{Binding LoadFromJsonCommand}" Margin="5" Padding="10,5" />
             <Button Content="Afegir" Command="{Binding AddBCInfoCommand}" Margin="5" Padding="10,5" 
-            Style="{StaticResource ModernSecundaryButtonStyle}"/>
+            Style="{DynamicResource ModernSecundaryButtonStyle}"/>
             <Button Content="Veure Rendiment" Margin="5" Padding="10,5" 
-            Style="{StaticResource ModernPrimaryButtonStyle}"/>
-            
+            Style="{DynamicResource ModernPrimaryButtonStyle}"/>
+
+            <Button Content="Export to JSON" Command="{Binding ExportToJsonCommand}" Margin="5" Padding="10,5" Style="{DynamicResource ModernSideButtonStyle}"/>
+            <Button Content="Load from JSON" Command="{Binding LoadFromJsonCommand}" Margin="5" Padding="10,5" Style="{DynamicResource ModernSideButtonStyle}"/>
+
         </StackPanel>
 
 

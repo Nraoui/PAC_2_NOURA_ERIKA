@@ -7,6 +7,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Media;
 using WPF_MVVM_SPA_Template.Models;
 using WPF_MVVM_SPA_Template.Views;
 
@@ -24,6 +25,50 @@ namespace WPF_MVVM_SPA_Template.ViewModels
             get { return _newInfo; }
             set { _newInfo = value; OnPropertyChanged(); }
         }
+
+        private string? _ibanError;
+        public string? IBANError
+        {
+            get { return _ibanError; }
+            set
+            {
+                _ibanError = value;
+                OnPropertyChanged();
+                OnPropertyChanged(nameof(IBANErrorVisibility));
+            }
+        }
+
+        private int? _pinError;
+        public int? PinError
+        {
+            get { return _pinError; }
+            set
+            {
+                _pinError = value;
+                OnPropertyChanged();
+                OnPropertyChanged(nameof(PinErrorForeground));
+            }
+        }
+
+
+        public Visibility IBANErrorVisibility => string.IsNullOrWhiteSpace(IBANError) ? Visibility.Collapsed : Visibility.Visible;
+        public Brush PinErrorForeground => PinError == 0 ? Brushes.Black : Brushes.Red;
+
+
+        private bool ValidateInfo()
+        {
+            bool isValid = true;
+
+            IBANError = string.IsNullOrWhiteSpace(NewInfo?.IBAN) ? "El IBAN és obligatori" : null;
+            if (IBANError != null) isValid = false;
+
+            PinError = NewInfo?.Pin == 0 ? 1 : 0;
+            if (PinError != 0) isValid = false;
+
+
+            return isValid;
+        }
+
 
         public RelayCommand SaveBCInfo { get; set; }
         public RelayCommand CancelBCInfo { get; set; }
@@ -60,6 +105,14 @@ namespace WPF_MVVM_SPA_Template.ViewModels
 
         private void Save()
         {
+
+            ValidateInfo();
+
+            if (!ValidateInfo())
+            {
+                return;
+            }
+
             if (NewInfo != null)
             {
                 if (_option3ViewModel.BankClientInfo.Any(c => c.Id == NewInfo.Id))

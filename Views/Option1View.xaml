@@ -5,20 +5,25 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WPF_MVVM_SPA_Template.Views"
         mc:Ignorable="d">
-    <Grid Background="White" Margin="10">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*" />
-            <RowDefinition Height="Auto" />
-        </Grid.RowDefinitions>
+    <Grid>
 
-        <DataGrid ItemsSource="{Binding Students}" 
-                  SelectedItem="{Binding SelectedStudent}" 
-                  IsReadOnly="True"
-                  AutoGenerateColumns="False" 
-                  Grid.Row="0">
-            
-        </DataGrid>
-        <Label Content="Welcome to our Bank Management App!" HorizontalAlignment="Left" Margin="25" VerticalAlignment="Top" Width="Auto"/>
+        <Image Source="../Images/bancImage.jpg" Stretch="Fill" />
+        <Image Source="../Images/black.jpg"   Stretch="Fill" Opacity="0.5"/>
+
+
+        <!-- Welcome Text -->
+        <TextBlock Text="Your Banking Experience"
+                       FontSize="24"
+                       FontWeight="Bold"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Top" 
+                       Foreground="White" Margin="0,145,0,0"
+                       />
+        <TextBlock Text="Tailored to Your Needs!" FontSize="15"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Top" 
+                        Foreground="White" Margin="0,209,0,0" />
+
 
     </Grid>
 </UserControl>

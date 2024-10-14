@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WPF_MVVM_SPA_Template.Views"
         mc:Ignorable="d">
-    <Grid Background="White" Margin="10">
+    <Grid  Margin="10" Style="{DynamicResource ModernGridStyle}">
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
@@ -15,27 +15,27 @@
                   SelectedItem="{Binding SelectedClient}" 
                   IsReadOnly="True"
                   AutoGenerateColumns="False" 
-                  Grid.Row="0">
+                  Grid.Row="0" Style="{DynamicResource Darkform}" >
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Id" Binding="{Binding Id}" Width="Auto" />
-                <DataGridTextColumn Header="Dni" Binding="{Binding Dni}" Width="Auto"/>
-                <DataGridTextColumn Header="Nom" Binding="{Binding Name}" Width="Auto" />
-                <DataGridTextColumn Header="Cognoms" Binding="{Binding Surnames}" Width="Auto"/>
+                <DataGridTextColumn Header="Id" Binding="{Binding Id}" Width="Auto"/>
+                <DataGridTextColumn Header="DNI" Binding="{Binding Dni}" Width="Auto"/>
+                <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="Auto" />
+                <DataGridTextColumn Header="Surnames" Binding="{Binding Surnames}" Width="Auto"/>
                 <DataGridTextColumn Header="Email" Binding="{Binding Email}" Width="Auto"/>
-                <DataGridTextColumn Header="Telèfon" Binding="{Binding PhoneNumber}" Width="Auto"/>
-                <DataGridTextColumn Header="Data d'alta" Binding="{Binding RegestrationDate,StringFormat='{}{0:dd/MM/yyyy}'}" Width="Auto"/>
+                <DataGridTextColumn Header="Phone Number" Binding="{Binding PhoneNumber}" Width="Auto"/>
+                <DataGridTextColumn Header="Registration Date" Binding="{Binding RegestrationDate,StringFormat='{}{0:dd/MM/yyyy}'}" Width="Auto"/>
 
-                <DataGridTemplateColumn Header="Edit" Width="*">
+                <DataGridTemplateColumn Header="Edit" Width="*" >
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Button Content="Edit" Command="{Binding DataContext.EditClientCommand, RelativeSource={RelativeSource AncestorType=UserControl}}" CommandParameter="{Binding}" Style="{DynamicResource ModernPrimaryButtonStyle}" />
+                            <Button Content="Edit" Command="{Binding DataContext.EditClientCommand, RelativeSource={RelativeSource AncestorType=UserControl}}" CommandParameter="{Binding}" Style="{DynamicResource ModernEditButtonStyle}" />
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
                 <DataGridTemplateColumn Header="Delete" Width="*">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Button Content="Delete" Command="{Binding DataContext.DelClientCommand, RelativeSource={RelativeSource AncestorType=UserControl}}" CommandParameter="{Binding}" Background="#FF790000" Foreground="White"/>
+                            <Button Content="Delete" Command="{Binding DataContext.DelClientCommand, RelativeSource={RelativeSource AncestorType=UserControl}}" CommandParameter="{Binding}" Style="{DynamicResource ModernDeleteButtonStyle}"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
@@ -45,19 +45,18 @@
 
 
 
-        
+
         </DataGrid>
 
         <!-- Botons i controls d'edició -->
         <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right">
-            <Button Content="Afegir" Command="{Binding AddClientCommand}" Margin="5" Padding="10,5" 
+            <Button Content="Add" Command="{Binding AddClientCommand}" Margin="5" Padding="10,5" 
                     Style="{DynamicResource ModernSecundaryButtonStyle}" />
-            <Button Content="Veure Rendiment"
+            <Button Content="Check Performance"
             IsEnabled="{Binding SelectedClient}" Margin="5" Padding="10,5" Style="{DynamicResource ModernPrimaryButtonStyle}" />
-            <Button Content="Export to JSON" Command="{Binding ExportToJsonCommand}" Margin="5" Padding="10,5"  Style="{DynamicResource ModernSideButtonStyle}"/>
-            <Button Content="Load from JSON" Command="{Binding LoadFromJsonCommand}" Margin="5" Padding="10,5" Style="{DynamicResource ModernSideButtonStyle}"/>
+            <Button Content="Export to JSON" Command="{Binding ExportToJsonCommand}" Margin="5" Padding="10,5" Style="{DynamicResource ModernSideButtonStyle }"/>
         </StackPanel>
-        
+
 
 
     </Grid>

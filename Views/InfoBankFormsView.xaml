@@ -8,12 +8,15 @@
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid Background="AliceBlue" Margin="10">
         <Grid.RowDefinitions>
+            <!-- Define your row definitions as before -->
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="2*"/>
         </Grid.RowDefinitions>
 
@@ -21,26 +24,51 @@
             <ColumnDefinition Width="200"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <Label Grid.Row="0" Grid.Column="0" Content="ID" HorizontalAlignment="Left" Margin="5" VerticalAlignment="Center"/>
-        <Label Grid.Row="1" Grid.Column="0" Content="Client" HorizontalAlignment="Left" Margin="5" VerticalAlignment="Center"/>
-        <Label Grid.Row="2" Grid.Column="0" Content="IBAN" HorizontalAlignment="Left" Margin="5" VerticalAlignment="Center"/>
-        <Label Grid.Row="3" Grid.Column="0" Content="Saved Income" HorizontalAlignment="Left" Margin="5" VerticalAlignment="Center"/>
-        <Label Grid.Row="4" Grid.Column="0" Content="Debt" HorizontalAlignment="Left" Margin="5" VerticalAlignment="Center"/>
-        <Label Grid.Row="5" Grid.Column="0" Content="Pin" HorizontalAlignment="Left" Margin="5" VerticalAlignment="Center"/>
+
+        <!-- Replace ID and Client labels with a ComboBox for client selection -->
+        <Label Grid.Row="0" Grid.Column="0" Content="Client" HorizontalAlignment="Left" Margin="5" VerticalAlignment="Center"/>
+        <ComboBox Grid.Row="0" Grid.Column="1" 
+          ItemsSource="{Binding AvailableClients}" 
+          SelectedItem="{Binding SelectedClient, Mode=TwoWay}" 
+          HorizontalAlignment="Stretch" 
+          Margin="5" 
+          VerticalAlignment="Center">
+
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{Binding Name}" />
+                        <TextBlock Text=" - " />
+                        <TextBlock Text="{Binding Dni}" />
+                    </StackPanel>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+
+        </ComboBox>
 
 
-        <StackPanel Grid.Column="1" Grid.Row="6" Orientation="Horizontal" HorizontalAlignment="Right">
-            <Button Grid.Column="1" Grid.Row="6" Content="Cancel" Command="{Binding CancelBCInfo}" HorizontalAlignment="Right" Margin="10" Width="100" Height="50" VerticalAlignment="Center"/>
-            <Button Grid.Column="1" Grid.Row="6" Content="Save" Command="{Binding SaveBCInfo}"  HorizontalAlignment="Right" Margin="10" Width="100" Height="50" VerticalAlignment="Center"/>
-        </StackPanel>
-        <TextBlock Name="InfoId" Grid.Column="1" Grid.Row="0" Text="{Binding NewInfo.Id}"  HorizontalAlignment="Stretch" Margin="5" TextWrapping="Wrap" VerticalAlignment="Stretch"/>
-        <TextBlock Name="Client" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Stretch" Text="{Binding NewInfo.ClientName}" Margin="5" TextWrapping="Wrap" VerticalAlignment="Stretch"/>
-        <TextBox Name="IBAN" Grid.Column="1" Grid.Row="2" HorizontalAlignment="Stretch" Text="{Binding NewInfo.IBAN}" Margin="5" TextWrapping="Wrap" VerticalAlignment="Stretch"/>
+        <Label Grid.Row="1" Grid.Column="0" Content="IBAN" HorizontalAlignment="Left" Margin="5" VerticalAlignment="Center"/>
+        <TextBox Name="IBAN" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Stretch" Text="{Binding NewInfo.IBAN, UpdateSourceTrigger=PropertyChanged}" Margin="5" TextWrapping="Wrap" VerticalAlignment="Stretch"/>
         <Label Content="{Binding IBANError}" Foreground="Red" Grid.Row="2" Grid.Column="1" 
-    Visibility="{Binding IBANErrorVisibility}"/>
-        <TextBox Name="Income" Grid.Column="1" Grid.Row="3" HorizontalAlignment="Stretch" Text="{Binding NewInfo.SavedIncome}" Margin="5" TextWrapping="Wrap" VerticalAlignment="Stretch"/>
-        <TextBox Name="Debt" Grid.Column="1" Grid.Row="4" HorizontalAlignment="Stretch" Text="{Binding NewInfo.Debt}" Margin="5" TextWrapping="Wrap" VerticalAlignment="Stretch"/>
-        <TextBox Name="Pin" Grid.Column="1" Grid.Row="5" HorizontalAlignment="Stretch" Text="{Binding NewInfo.Pin}" Margin="5" TextWrapping="Wrap" VerticalAlignment="Stretch" Foreground="{Binding PinErrorForeground}"/>
+               Visibility="{Binding IBANErrorVisibility}"/>
 
+        <Label Grid.Row="3" Grid.Column="0" Content="Saved Income" HorizontalAlignment="Left" Margin="5" VerticalAlignment="Center"/>
+        <TextBox Name="Income" Grid.Column="1" Grid.Row="3" HorizontalAlignment="Stretch" Text="{Binding NewInfo.SavedIncome, UpdateSourceTrigger=PropertyChanged}" Margin="5" TextWrapping="Wrap" VerticalAlignment="Stretch"/>
+        <Label Content="{Binding IncomeError}" Foreground="Red" Grid.Row="4" Grid.Column="1" 
+               Visibility="{Binding IncomeErrorVisibility}"/>
+
+        <Label Grid.Row="5" Grid.Column="0" Content="Debt" HorizontalAlignment="Left" Margin="5" VerticalAlignment="Center"/>
+        <TextBox Name="Debt" Grid.Column="1" Grid.Row="5" HorizontalAlignment="Stretch" Text="{Binding NewInfo.Debt, UpdateSourceTrigger=PropertyChanged}" Margin="5" TextWrapping="Wrap" VerticalAlignment="Stretch"/>
+
+        <Label Grid.Row="6" Grid.Column="0" Content="Pin" HorizontalAlignment="Left" Margin="5" VerticalAlignment="Center"/>
+        <TextBox Name="Pin" Grid.Column="1" Grid.Row="6" HorizontalAlignment="Stretch" Text="{Binding NewInfo.Pin, UpdateSourceTrigger=PropertyChanged}" Margin="5" TextWrapping="Wrap" VerticalAlignment="Stretch" Foreground="{Binding PinErrorForeground}"/>
+        <Label Content="{Binding PinError}" Foreground="Red" Grid.Row="7" Grid.Column="1" 
+               Visibility="{Binding PinErrorVisibility}"/>
+
+        <!-- Buttons remain the same -->
+        <StackPanel Grid.Column="1" Grid.Row="8" Orientation="Horizontal" HorizontalAlignment="Right">
+            <Button Content="Save" Command="{Binding SaveBCInfo}" Style="{StaticResource ModernPrimaryButtonStyle}" HorizontalAlignment="Right" Margin="10" Width="100" Height="50" VerticalAlignment="Center"/>
+            <Button Content="Cancel" Command="{Binding CancelBCInfo}" Style="{StaticResource ModernSecundaryButtonStyle}" HorizontalAlignment="Right" Margin="10" Width="100" Height="50" VerticalAlignment="Center"/>
+        </StackPanel>
     </Grid>
 </UserControl>

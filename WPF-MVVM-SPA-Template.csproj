@@ -10,6 +10,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Images\bancImage.jpg" />
+    <None Remove="Images\bank.png" />
+    <None Remove="Images\black.jpg" />
     <None Remove="Images\ChangeTheme.png" />
     <None Remove="Images\info_black.png" />
     <None Remove="Images\info_white.png" />
@@ -17,10 +20,14 @@
 
   <ItemGroup>
     <PackageReference Include="LiveCharts.Wpf" Version="0.9.7" />
+    <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.135" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Images\bancImage.jpg" />
+    <Resource Include="Images\bank.png" />
+    <Resource Include="Images\black.jpg" />
     <Resource Include="Images\ChangeTheme.png" />
     <Resource Include="Images\info_black.png" />
     <Resource Include="Images\info_white.png" />

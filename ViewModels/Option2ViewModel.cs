@@ -18,7 +18,7 @@ namespace WPF_MVVM_SPA_Template.ViewModels
         // Col·lecció de Courses (podrien carregar-se d'una base de dades)
         // ObservableCollection és una llista que notifica els canvis a la vista
         public ObservableCollection<Client> Clients { get; set; } = new ObservableCollection<Client>();
-        
+
 
         // Propietat per controlar el curs seleccionat a la vista
         private Client? _selectedClient;
@@ -31,7 +31,7 @@ namespace WPF_MVVM_SPA_Template.ViewModels
         // RelayCommands connectats via Binding als botons de la vista
         public RelayCommand AddClientCommand { get; set; }
         public RelayCommand DelClientCommand { get; set; }
-        public RelayCommand EditClientCommand {  get; set; }
+        public RelayCommand EditClientCommand { get; set; }
         public RelayCommand ExportToJsonCommand { get; set; }
         public RelayCommand LoadFromJsonCommand { get; set; }
 
@@ -44,14 +44,14 @@ namespace WPF_MVVM_SPA_Template.ViewModels
         {
             _mainViewModel = mainViewModel;
             // Carreguem cursos a memòria mode de prova
-            Clients.Add(new Client { Id = 1,Dni="Y9456786L" ,Name = "Jordi",Surnames = "Soler ", Email = "jordi.soler@gmail.com", PhoneNumber = "612354687",RegestrationDate =new DateTime(2024,3,12) });
-            Clients.Add(new Client { Id = 2, Dni = "X4578969W",Name = "Laia", Surnames = "Pujol ", Email = "laia.pujol@gmail.com", PhoneNumber = "613456895", RegestrationDate = new DateTime(2024, 4, 23) });
+            Clients.Add(new Client { Id = 1, Dni = "Y9456786L", Name = "Jordi", Surnames = "Soler ", Email = "jordi.soler@gmail.com", PhoneNumber = "612354687", RegestrationDate = new DateTime(2024, 3, 12) });
+            Clients.Add(new Client { Id = 2, Dni = "X4578969W", Name = "Laia", Surnames = "Pujol ", Email = "laia.pujol@gmail.com", PhoneNumber = "613456895", RegestrationDate = new DateTime(2024, 4, 23) });
             Clients.Add(new Client { Id = 3, Dni = "L4589621O", Name = "Marc", Surnames = "Torres ", Email = "marc.torres@gmail.com", PhoneNumber = "613245697", RegestrationDate = new DateTime(2024, 5, 2) });
             Clients.Add(new Client { Id = 4, Dni = "N4589623M", Name = "Anna", Surnames = "Garcia ", Email = "anna.garcia@gmail.com", PhoneNumber = "612456321", RegestrationDate = new DateTime(2024, 6, 30) });
-            Clients.Add(new Client { Id = 5, Dni = "M1235987P",Name = "Oriol", Surnames = "Marti ", Email = "oriol.marti@gmail.com", PhoneNumber = "613249562", RegestrationDate = new DateTime(2024, 7, 14) });
-            Clients.Add(new Client { Id = 6, Dni = "R4598623U",Name = "Núria", Surnames = "López ", Email = "nuria.lopez@gmail.com", PhoneNumber = "613456217", RegestrationDate = new DateTime(2024, 8, 26) });
+            Clients.Add(new Client { Id = 5, Dni = "M1235987P", Name = "Oriol", Surnames = "Marti ", Email = "oriol.marti@gmail.com", PhoneNumber = "613249562", RegestrationDate = new DateTime(2024, 7, 14) });
+            Clients.Add(new Client { Id = 6, Dni = "R4598623U", Name = "Núria", Surnames = "López ", Email = "nuria.lopez@gmail.com", PhoneNumber = "613456217", RegestrationDate = new DateTime(2024, 8, 26) });
             LoadFromJson();
-           
+
             // Inicialitzem els diferents commands disponibles (accions)
             AddClientCommand = new RelayCommand(x => AddClient());
             DelClientCommand = new RelayCommand(x => DelClient());
@@ -65,7 +65,7 @@ namespace WPF_MVVM_SPA_Template.ViewModels
 
 
         }
-        
+
 
         //Mètodes per afegir i eliminar cursos de la col·lecció
         private void AddClient()
@@ -84,7 +84,7 @@ namespace WPF_MVVM_SPA_Template.ViewModels
         {
             if (SelectedClient != null)
             {
-                
+
                 var clientFormViewModel = new ClientFormViewModel(_mainViewModel, this);
                 clientFormViewModel.NewClient = new Client
                 {
@@ -97,10 +97,10 @@ namespace WPF_MVVM_SPA_Template.ViewModels
                     RegestrationDate = SelectedClient.RegestrationDate
                 };
 
-                    _mainViewModel.CurrentView = new ClientFormView { DataContext = clientFormViewModel };
+                _mainViewModel.CurrentView = new ClientFormView { DataContext = clientFormViewModel };
 
-                }
             }
+        }
 
         private void SaveToJson()
         {
@@ -132,17 +132,12 @@ namespace WPF_MVVM_SPA_Template.ViewModels
             }
             else
             {
-                MessageBox.Show("No JSON file found to load!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Cap arxiu JSON de clients per carregar!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
 
 
-        public string GetNomById(int id)
-        {
-            var client = Clients.FirstOrDefault(c => c.Id == id);
-            return client != null ? client.Name : string.Empty;
-        }
 
 
         // Això és essencial per fer funcionar el Binding de propietats entre Vistes i ViewModels

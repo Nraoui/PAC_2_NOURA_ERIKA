@@ -43,8 +43,8 @@ namespace WPF_MVVM_SPA_Template.ViewModels
             _option2ViewModel = mainViewModel.Option2VM;
             //IBCId = 0;
 
-            BankClientInfo.Add(new BankClientInfo { Id = 1, IBAN = "DE44 1234 1234 1234 1234 00", SavedIncome = 20000, Debt = 1654, Pin = 2323, ClientName = _option2ViewModel.GetNomById(1) });
-            BankClientInfo.Add(new BankClientInfo { Id = 2, IBAN = "GB29 NWBK 6016 1331 9268 19", SavedIncome = 5000, Debt = 0, Pin = 1111, ClientName = _option2ViewModel.GetNomById(2) });
+            //BankClientInfo.Add(new BankClientInfo { Id = 1, IBAN = "DE44 1234 1234 1234 1234 00", SavedIncome = "20000", Debt = "1654", Pin = "2323", ClientName = _option2ViewModel.GetNomById(1) });
+            //BankClientInfo.Add(new BankClientInfo { Id = 2, IBAN = "GB29 NWBK 6016 1331 9268 19", SavedIncome = "5000", Debt = "0", Pin = "1111", ClientName = _option2ViewModel.GetNomById(2) });
             LoadFromJson();
 
             AddBCInfoCommand = new RelayCommand(x => AddBCInfo());
@@ -84,7 +84,7 @@ namespace WPF_MVVM_SPA_Template.ViewModels
             }
             else
             {
-                MessageBox.Show("No JSON file found to load!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("No s'ha trobat cap arxiu JSON per la informació bancària!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 

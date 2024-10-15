@@ -1,0 +1,37 @@
+﻿<UserControl x:Class="WPF_MVVM_SPA_Template.Views.InfoAppView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:WPF_MVVM_SPA_Template.Views"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid Width="700" MinWidth="400" MaxWidth="700" Style="{DynamicResource ModernInfoAppStyle}">
+
+        <!-- Define Rows for better layout control -->
+        <Grid.RowDefinitions>
+            <RowDefinition Height="130" />
+            <!-- For Title -->
+            <RowDefinition Height="*" />
+            <!-- For TextBlock -->
+        </Grid.RowDefinitions>
+
+        <!-- Title of the Page -->
+        <TextBlock Grid.Row="0"
+                   Text="Sobre l'aplicació" 
+                   FontSize="28" 
+                   FontWeight="Bold" 
+                   HorizontalAlignment="Center" 
+                   Margin="0,75,0,0" Style="{DynamicResource ModernTextBlockStyle}" Width="224"/>
+        <!-- Adjusted margins -->
+
+        <!-- Application Summary Paragraph -->
+        <TextBlock Grid.Row="1"
+                   FontSize="16" 
+                   TextWrapping="Wrap" 
+                   TextAlignment="Center" 
+                   Margin="50,15,50,25" Style="{DynamicResource ModernTextBlockStyle}"><Run Text="This application provides a comprehensive system for managing client data in a bank."/><Run Language="es-es" Text=" "/><Run Text="It allows you to add, edit, and delete client records, including personal information"/><Run Language="es-es" Text=" "/><Run Text="like names, email addresses, and registration dates. The system also tracks each client's financial performance over time by generating monthly deposit performance graphs. Additionally, it securely manages sensitive banking information such as PINs,"/><Run Language="es-es" Text=" "/><Run Text="IBANs, and debt records, enabling users to update and review this data as needed."/></TextBlock>
+        <!-- More controlled margins -->
+
+    </Grid>
+</UserControl>

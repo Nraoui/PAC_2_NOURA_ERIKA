@@ -15,10 +15,6 @@ namespace WPF_MVVM_SPA_Template.ViewModels
         {
         }
 
-        //Mètodes per afegir i eliminar estudiants de la col·lecció
-
-
-        // Això és essencial per fer funcionar el Binding de propietats entre Vistes i ViewModels
         public event PropertyChangedEventHandler? PropertyChanged;
         protected void OnPropertyChanged([CallerMemberName] string? name = null)
         {

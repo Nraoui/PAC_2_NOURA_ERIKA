@@ -25,10 +25,9 @@ namespace WPF_MVVM_SPA_Template.ViewModels
             {
                 _newClient = value;
                 OnPropertyChanged();
-
-
             }
         }
+
         private string? _dniError;
         public string? DniError
         {
@@ -89,113 +88,50 @@ namespace WPF_MVVM_SPA_Template.ViewModels
             }
         }
 
-
         public Visibility DniErrorVisibility => string.IsNullOrWhiteSpace(DniError) ? Visibility.Collapsed : Visibility.Visible;
         public Visibility NameErrorVisibility => string.IsNullOrWhiteSpace(NameError) ? Visibility.Collapsed : Visibility.Visible;
         public Visibility SurnamesErrorVisibility => string.IsNullOrWhiteSpace(SurnamesError) ? Visibility.Collapsed : Visibility.Visible;
         public Visibility EmailErrorVisibility => string.IsNullOrWhiteSpace(EmailError) ? Visibility.Collapsed : Visibility.Visible;
         public Visibility PhoneNumberErrorVisibility => string.IsNullOrWhiteSpace(PhoneNumberError) ? Visibility.Collapsed : Visibility.Visible;
-        private bool ValidateClient()
-        {
-            bool isValid = true;
 
-            DniError = string.IsNullOrWhiteSpace(NewClient?.Dni) ? "El camp DNI és obligatori." : null;
-            if (DniError != null)
-            {
-                isValid = false;
-            }
-            else if (!IsValidDniFormat(NewClient.Dni))
-            {
-                DniError = "El format del DNI és incorrecte.";
-                isValid = false;
-            }
-
-            NameError = string.IsNullOrWhiteSpace(NewClient?.Name) ? "El camp Name és obligatori." : null;
-            if (NameError != null)
-            {
-                isValid = false;
-            }
-            else if (NewClient.Name.Length < 3)
-            {
-                NameError = "El nom ha de tenir al menys 3 caràcters.";
-                isValid = false;
-            }
-
-            SurnamesError = string.IsNullOrWhiteSpace(NewClient?.Surnames) ? "El camp Surnames és obligatori." : null;
-            if (SurnamesError != null)
-            {
-                isValid = false;
-            }
-            else if (NewClient.Surnames.Length < 3)
-            {
-                SurnamesError = "Els cognoms han de tenir al menys 3 caràcters.";
-                isValid = false;
-            }
-            EmailError = string.IsNullOrWhiteSpace(NewClient?.Email) ? "El camp Email és obligatori." : null;
-            if (EmailError != null)
-            {
-                isValid = false;
-            }
-            else if (!IsValidEmail(NewClient.Email))
-            {
-                EmailError = "El format de l'email és incorrecte.";
-                isValid = false;
-            }
-
-            PhoneNumberError = string.IsNullOrWhiteSpace(NewClient?.PhoneNumber) ? "El camp PhoneNumber és obligatori." : null;
-            if (PhoneNumberError != null)
-            {
-                isValid = false;
-            }
-            else if (!IsValidPhoneNumber(NewClient.PhoneNumber))  // Nova validació per 9 dígits
-            {
-                PhoneNumberError = "El número de telèfon ha de tenir exactament 9 dígits.";
-                isValid = false;
-            }
-            return isValid;
-        }
+        // Validation methods
+        
         private bool IsValidEmail(string email)
         {
             string pattern = @"^[^@\s]+@[^@\s]+\.[^@\s]+$";
             return Regex.IsMatch(email, pattern);
         }
+
         private bool IsValidDniFormat(string dni)
         {
-            // Expressió regular per validar el format: 8 dígits seguits d'una lletra
             string dniPattern = @"^\d{8}[A-Za-z]$";
             return Regex.IsMatch(dni, dniPattern);
         }
+
         private bool IsValidPhoneNumber(string phoneNumber)
         {
-            // Expressió regular per assegurar que el número té exactament 9 dígits
             string phonePattern = @"^\d{9}$";
             return Regex.IsMatch(phoneNumber, phonePattern);
         }
 
+        // ICommand properties
+        public ICommand ValidateDniCommand { get; private set; }
+        public ICommand ValidateNameCommand { get; private set; }
+        public ICommand ValidateSurnamesCommand { get; private set; }
+        public ICommand ValidateEmailCommand { get; private set; }
+        public ICommand ValidatePhoneNumberCommand { get; private set; }
 
         public RelayCommand SaveCommand { get; set; }
         public RelayCommand CancelCommand { get; set; }
-
-        private int GetNextClientId()
-        {
-            // Return the next available ID based on the count of existing clients
-            return _option2ViewModel.Clients.Any() ?
-                _option2ViewModel.Clients.Max(client => client.Id) + 1 : 1;
-        }
-
 
         public ClientFormViewModel(MainViewModel mainViewModel, Option2ViewModel option2ViewModel, Client? clientToEdit = null)
         {
             _mainViewModel = mainViewModel;
             _option2ViewModel = option2ViewModel;
 
-
-
-
-
+            // Initialize NewClient or load the client to edit
             if (clientToEdit != null)
             {
-                // If editing an existing client, populate NewClient
                 NewClient = new Client
                 {
                     Id = clientToEdit.Id,
@@ -209,61 +145,114 @@ namespace WPF_MVVM_SPA_Template.ViewModels
             }
             else
             {
-                // If adding a new client
                 NewClient = new Client { Id = GetNextClientId() };
             }
 
-
+            // Initialize commands
+            ValidateDniCommand = new RelayCommand(x => ValidateDni((string)x));
+            ValidateNameCommand = new RelayCommand(x => ValidateName((string)x));
+            ValidateSurnamesCommand = new RelayCommand(x => ValidateSurnames((string)x));
+            ValidateEmailCommand = new RelayCommand(x => ValidateEmail((string)x));
+            ValidatePhoneNumberCommand = new RelayCommand(x => ValidatePhoneNumber((string)x));
 
             SaveCommand = new RelayCommand(x => Save());
             CancelCommand = new RelayCommand(x => Cancel());
-
-
-
         }
 
-
-
+        // Save client logic
         private void Save()
         {
-            ValidateClient();
+            ValidateDni(NewClient?.Dni ?? string.Empty);
+            ValidateName(NewClient?.Name ?? string.Empty);
+            ValidateSurnames(NewClient?.Surnames ?? string.Empty);
+            ValidateEmail(NewClient?.Email ?? string.Empty);
+            ValidatePhoneNumber(NewClient?.PhoneNumber ?? string.Empty);
 
             if (!ValidateClient())
             {
                 return;
             }
+
             if (NewClient != null)
             {
-
                 if (_option2ViewModel.Clients.Any(c => c.Id == NewClient.Id))
                 {
-                    // Update the existing client
                     var existingClient = _option2ViewModel.Clients.First(c => c.Id == NewClient.Id);
                     existingClient.Email = NewClient.Email;
                     existingClient.PhoneNumber = NewClient.PhoneNumber;
-                    // Update other properties if needed, or leave them unchanged
                 }
                 else
                 {
-                    // Add new client logic, if needed
                     _option2ViewModel.Clients.Add(NewClient);
                 }
-
             }
+
             _mainViewModel.SelectedView = "Option2";
             ClearForm();
         }
+
+        private void ValidateDni(string dni)
+        {
+            DniError = string.IsNullOrWhiteSpace(dni) ? "El camp DNI és obligatori." : null;
+            if (DniError == null && !IsValidDniFormat(dni))
+            {
+                DniError = "El format del DNI és incorrecte.";
+            }
+        }
+
+        private void ValidateName(string name)
+        {
+            NameError = string.IsNullOrWhiteSpace(name) ? "El camp Name és obligatori." : null;
+            if (NameError == null && name.Length < 3)
+            {
+                NameError = "El nom ha de tenir al menys 3 caràcters.";
+            }
+        }
+
+        private void ValidateSurnames(string surnames)
+        {
+            SurnamesError = string.IsNullOrWhiteSpace(surnames) ? "El camp Surnames és obligatori." : null;
+            if (SurnamesError == null && surnames.Length < 3)
+            {
+                SurnamesError = "Els cognoms han de tenir al menys 3 caràcters.";
+            }
+        }
+
+        private void ValidateEmail(string email)
+        {
+            EmailError = string.IsNullOrWhiteSpace(email) ? "El camp Email és obligatori." : null;
+            if (EmailError == null && !IsValidEmail(email))
+            {
+                EmailError = "El format de l'email és incorrecte.";
+            }
+        }
+
+        private void ValidatePhoneNumber(string phoneNumber)
+        {
+            PhoneNumberError = string.IsNullOrWhiteSpace(phoneNumber) ? "El camp PhoneNumber és obligatori." : null;
+            if (PhoneNumberError == null && !IsValidPhoneNumber(phoneNumber))
+            {
+                PhoneNumberError = "El número de telèfon ha de tenir exactament 9 dígits.";
+            }
+        }
+
+        private bool ValidateClient()
+        {
+            return string.IsNullOrEmpty(DniError) && string.IsNullOrEmpty(NameError) &&
+                   string.IsNullOrEmpty(SurnamesError) && string.IsNullOrEmpty(EmailError) &&
+                   string.IsNullOrEmpty(PhoneNumberError);
+        }
+
         private void ClearForm()
         {
             NewClient = new Client()
             {
-                Id = GetNextClientId() // Get a new unique ID for the new client
+                Id = GetNextClientId()
             };
-
         }
+
         private void Cancel()
         {
-            // Show a MessageBox with Yes and No buttons
             MessageBoxResult result = MessageBox.Show(
                 "Vols cancel·lar?",
                 "Confirm Cancel",
@@ -273,20 +262,21 @@ namespace WPF_MVVM_SPA_Template.ViewModels
             if (result == MessageBoxResult.Yes)
             {
                 ClearForm();
-                _mainViewModel.SelectedView = "Option3";
+                _mainViewModel.SelectedView = "Option2";
             }
-            // If 'No' is clicked, do nothing and remain in the current view.
+        }
+
+        private int GetNextClientId()
+        {
+            return _option2ViewModel.Clients.Any() ?
+                _option2ViewModel.Clients.Max(client => client.Id) + 1 : 1;
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;
+
         protected void OnPropertyChanged([CallerMemberName] string? name = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
-
-
     }
-
-
-
 }

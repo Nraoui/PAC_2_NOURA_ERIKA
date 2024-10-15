@@ -5,16 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WPF_MVVM_SPA_Template"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="450" Width="800" Style="{DynamicResource Darkwin}">
     <DockPanel>
 
         <DockPanel>
 
-            <Button Tag="ChangeTheme" Command="{Binding ChangeThemeCommand}" HorizontalContentAlignment="Center" Grid.Column="0" Width="Auto" DockPanel.Dock="Bottom"  Background="Transparent" >
+            <Button Tag="ChangeTheme" Command="{Binding ChangeThemeCommand}" HorizontalContentAlignment="Center" Grid.Column="0" Width="Auto" DockPanel.Dock="Bottom"  Style="{DynamicResource ModernChangeButtonStyle}" >
                 <Image Source="Images/ChangeTheme.png" Width="Auto" Height="20"/>
-            </Button>
-            <Button Tag="GetInfo" FontSize="16" HorizontalContentAlignment="Center" Width="Auto" Grid.Column="1"  DockPanel.Dock="Bottom" Background="Transparent" >
-                <Image Source="Images/Info_Black.png" Width="Auto" Height="20" Grid.Column="0"/>
             </Button>
 
 
@@ -27,15 +24,15 @@
                              HorizontalContentAlignment="Left" Style="{DynamicResource ModernSidebarStyle}"/>
                 <ListBoxItem Content="Bank Inf." Tag="Option3" FontSize="16" Padding="10" 
                              HorizontalContentAlignment="Left" Style="{DynamicResource ModernSidebarStyle}"/>
-                <ListBoxItem IsEnabled="False" FontSize="16" Padding="10" Height="200"
-                             HorizontalContentAlignment="Left" Style="{DynamicResource ModernSidebarStyle}"/>
+                <ListBoxItem Content="Sobre" Tag="Option4" FontSize="16" Padding="10" 
+                        HorizontalContentAlignment="Left" Style="{DynamicResource ModernSidebarStyle}"/>
             
             </ListBox>
 
         </DockPanel>
                 
         <!-- Secció de contingut dinàmic (Grid) -->
-        <Grid Name="MainContent" Background="White" Margin="10">
+        <Grid Name="MainContent" Style="{DynamicResource ModernGridFormStyle}" Margin="10">
             <ContentControl Content="{Binding CurrentView}" />
         </Grid>
     </DockPanel>

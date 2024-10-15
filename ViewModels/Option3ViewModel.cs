@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows;
+
 using WPF_MVVM_SPA_Template.Models;
 using WPF_MVVM_SPA_Template.Views;
 //JSON serialization package
@@ -41,7 +42,6 @@ namespace WPF_MVVM_SPA_Template.ViewModels
         {
             _mainViewModel = mainViewModel;
             _option2ViewModel = mainViewModel.Option2VM;
-            //IBCId = 0;
 
             //BankClientInfo.Add(new BankClientInfo { Id = 1, IBAN = "DE44 1234 1234 1234 1234 00", SavedIncome = "20000", Debt = "1654", Pin = "2323", ClientName = _option2ViewModel.GetNomById(1) });
             //BankClientInfo.Add(new BankClientInfo { Id = 2, IBAN = "GB29 NWBK 6016 1331 9268 19", SavedIncome = "5000", Debt = "0", Pin = "1111", ClientName = _option2ViewModel.GetNomById(2) });
@@ -120,6 +120,19 @@ namespace WPF_MVVM_SPA_Template.ViewModels
         {
             if (SelectedInfo != null)
                 BankClientInfo.Remove(SelectedInfo);
+        }
+
+        public void RemoveBankInfoByClientName(string clientName)
+        {
+            // Find and remove all bank client info associated with the client's name and email
+            var bankClientInfosToRemove = BankClientInfo
+                .Where(info => info.ClientName == clientName)
+                .ToList();
+
+            foreach (var info in bankClientInfosToRemove)
+            {
+                BankClientInfo.Remove(info);
+            }
         }
 
 

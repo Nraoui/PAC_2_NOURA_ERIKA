@@ -8,6 +8,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Input;
 using System.Windows.Media;
 using WPF_MVVM_SPA_Template.Models;
 using WPF_MVVM_SPA_Template.Views;
@@ -91,25 +92,25 @@ namespace WPF_MVVM_SPA_Template.ViewModels
         {
             bool isValid = true;
 
-            IBANError = string.IsNullOrWhiteSpace(NewInfo?.IBAN) ? "El IBAN és obligatori" : null;
+            IBANError = string.IsNullOrWhiteSpace(NewInfo?.IBAN) ? "IBAN is obligatory" : null;
             if (IBANError != null)
             {
                 isValid = false;
             }else if (!IsValidIbanFormat(NewInfo.IBAN))
             {
-                IBANError = "El format del IBAN no és correcte";
+                IBANError = "IBAN format is wrong";
                 isValid = false;
             }
-            PinError = string.IsNullOrWhiteSpace(NewInfo?.Pin) ? "El PIN és obligatori" : null;
+            PinError = string.IsNullOrWhiteSpace(NewInfo?.Pin) ? "Pin is obligatory" : null;
             if (PinError != null)
             {
                 isValid = false;
             }else if (!IsValidPinFormat(NewInfo.Pin))
             {
-                PinError = "El format de PIN no és correcte";
+                PinError = "Pin's format is wrong";
                 isValid = false;
             }
-            IncomeError = string.IsNullOrWhiteSpace(NewInfo?.SavedIncome) ? "Has d'afegir dades als diners!" : null;
+            IncomeError = string.IsNullOrWhiteSpace(NewInfo?.SavedIncome) ? "You must add data here!" : null;
             if (IncomeError != null)
             {
                 isValid = false;
@@ -131,6 +132,9 @@ namespace WPF_MVVM_SPA_Template.ViewModels
         }
 
 
+        public ICommand ValidateIBANCommand { get; private set; }
+        public ICommand ValidatePinCommand { get; private set; }
+        public ICommand ValidateIncomeCommand { get; private set; }
 
         public RelayCommand SaveBCInfo { get; set; }
         public RelayCommand CancelBCInfo { get; set; }
@@ -162,9 +166,36 @@ namespace WPF_MVVM_SPA_Template.ViewModels
                 NewInfo = new BankClientInfo();
             }
 
+            ValidateIBANCommand = new RelayCommand(x => ValidateIban((string)x));
+            ValidatePinCommand = new RelayCommand(x => ValidatePin((string)x));
+            ValidateIncomeCommand = new RelayCommand(x => ValidateIncome((string)x));
+
 
             SaveBCInfo = new RelayCommand(x => Save());
             CancelBCInfo = new RelayCommand(x => Cancel());
+        }
+
+        private void ValidateIban(string iban)
+        {
+            IBANError = string.IsNullOrWhiteSpace(iban) ? "IBAN is obligatory" : null;
+            if (IBANError == null && !IsValidIbanFormat(iban))
+            {
+                IBANError = "IBAN's format is wrong";
+            }
+        }
+        private void ValidateIncome(string income)
+        {
+            IncomeError = string.IsNullOrWhiteSpace(income) ? "This can not be empty!" : null;
+        }
+
+
+        private void ValidatePin(string pin)
+        {
+            PinError = string.IsNullOrWhiteSpace(pin) ? "PIN is obligatory" : null;
+            if (PinError == null && !IsValidPinFormat(pin))
+            {
+                PinError = "PIN's format is wrong";
+            }
         }
 
         private void UpdateSelectedClientInfo()

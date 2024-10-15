@@ -34,7 +34,7 @@ namespace WPF_MVVM_SPA_Template.ViewModels
         public RelayCommand EditClientCommand { get; set; }
         public RelayCommand ExportToJsonCommand { get; set; }
         public RelayCommand LoadFromJsonCommand { get; set; }
-
+        public RelayCommand ViewPerformanceCommand { get; set; }
 
 
 
@@ -58,16 +58,20 @@ namespace WPF_MVVM_SPA_Template.ViewModels
             EditClientCommand = new RelayCommand(x => EditClient());
             ExportToJsonCommand = new RelayCommand(x => SaveToJson());
             LoadFromJsonCommand = new RelayCommand(x => LoadFromJson());
-
-
-
-
+            ViewPerformanceCommand = new RelayCommand(x => ViewPerformance());
 
 
         }
 
+        private void ViewPerformance()
+        {
+            if (SelectedClient != null)
+            {
+                var rendimentViewModel = new RendimentViewModel(SelectedClient, _mainViewModel);
+                _mainViewModel.CurrentView = new RendimentView { DataContext = rendimentViewModel };
+            }
+        }
 
-        //Mètodes per afegir i eliminar cursos de la col·lecció
         private void AddClient()
         {
             var clientFormViewModel = new ClientFormViewModel(_mainViewModel, this);
@@ -78,8 +82,12 @@ namespace WPF_MVVM_SPA_Template.ViewModels
         private void DelClient()
         {
             if (SelectedClient != null)
+            {
+                _mainViewModel.Option3VM.RemoveBankInfoByClientName(SelectedClient.Name);
                 Clients.Remove(SelectedClient);
+            }
         }
+
         private void EditClient()
         {
             if (SelectedClient != null)

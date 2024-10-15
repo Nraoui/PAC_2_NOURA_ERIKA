@@ -18,7 +18,8 @@
 
         <!-- Title of the Page -->
         <TextBlock Grid.Row="0"
-                   Text="Sobre l'aplicació" 
+                   Text="About the app" 
+                   TextAlignment="Center"
                    FontSize="28" 
                    FontWeight="Bold" 
                    HorizontalAlignment="Center" 

@@ -254,7 +254,7 @@ namespace WPF_MVVM_SPA_Template.ViewModels
         private void Cancel()
         {
             MessageBoxResult result = MessageBox.Show(
-                "Vols cancel·lar?",
+                "Do you want to cancel?",
                 "Confirm Cancel",
                 MessageBoxButton.YesNo,
                 MessageBoxImage.Question);

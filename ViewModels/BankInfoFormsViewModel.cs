@@ -253,7 +253,7 @@ namespace WPF_MVVM_SPA_Template.ViewModels
         {
             // Show a MessageBox with Yes and No buttons
             MessageBoxResult result = MessageBox.Show(
-                "Vols cancel·lar?",
+                "Do you want to cancel?",
                 "Confirm Cancel",
                 MessageBoxButton.YesNo,
                 MessageBoxImage.Question);

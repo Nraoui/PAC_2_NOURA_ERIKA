@@ -84,7 +84,7 @@ namespace WPF_MVVM_SPA_Template.ViewModels
             }
             else
             {
-                MessageBox.Show("No s'ha trobat cap arxiu JSON per la informació bancària!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("No JSON file for bank info!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 

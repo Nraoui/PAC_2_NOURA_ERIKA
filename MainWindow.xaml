@@ -24,7 +24,7 @@
                              HorizontalContentAlignment="Left" Style="{DynamicResource ModernSidebarStyle}"/>
                 <ListBoxItem Content="Bank Inf." Tag="Option3" FontSize="16" Padding="10" 
                              HorizontalContentAlignment="Left" Style="{DynamicResource ModernSidebarStyle}"/>
-                <ListBoxItem Content="Sobre" Tag="Option4" FontSize="16" Padding="10" 
+                <ListBoxItem Content="About" Tag="Option4" FontSize="16" Padding="10" 
                         HorizontalContentAlignment="Left" Style="{DynamicResource ModernSidebarStyle}"/>
             
             </ListBox>

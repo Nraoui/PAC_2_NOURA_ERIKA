@@ -140,7 +140,7 @@ namespace WPF_MVVM_SPA_Template.ViewModels
             }
             else
             {
-                MessageBox.Show("Cap arxiu JSON de clients per carregar!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("No JSON file for Clients!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 

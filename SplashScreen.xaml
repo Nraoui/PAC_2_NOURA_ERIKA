@@ -5,7 +5,14 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WPF_MVVM_SPA_Template"
         mc:Ignorable="d"
-        Title="SplashScreen" Height="450" Width="800">
+        WindowStyle="None"
+        AllowsTransparency="True"
+        Background="Transparent"
+        WindowStartupLocation="CenterScreen"
+        ShowInTaskbar="False"
+        Topmost="True"
+        ResizeMode="NoResize"
+        Title="SplashScreen" Height="300" Width="400">
     <Grid Background="White">
 
         <Image Source="/Images/Bank.png" Width="87" Height="100" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="94,81,0,0" >

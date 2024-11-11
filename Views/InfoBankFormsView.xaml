@@ -5,6 +5,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:WPF_MVVM_SPA_Template.Views"
+             xmlns:custLib="clr-namespace:CustomControlsLib;assembly=CustomControlsLib"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid Background="AliceBlue" Margin="10">
@@ -44,65 +45,25 @@
         </ComboBox>
 
         <Label Grid.Row="1" Grid.Column="0" Content="IBAN" HorizontalAlignment="Left" Margin="5" VerticalAlignment="Center"/>
-        <TextBox Name="IBAN" Grid.Column="1" Grid.Row="1" 
-             HorizontalAlignment="Stretch" 
-             Text="{Binding NewInfo.IBAN, UpdateSourceTrigger=PropertyChanged}" 
-             Margin="5" 
-             TextWrapping="Wrap" 
-             VerticalAlignment="Stretch">
-            <i:Interaction.Triggers>
-                <i:EventTrigger EventName="TextChanged">
-                    <i:InvokeCommandAction Command="{Binding ValidateIBANCommand}" 
-                                   CommandParameter="{Binding Text, ElementName=IBAN}"/>
-                </i:EventTrigger>
-            </i:Interaction.Triggers>
-        </TextBox>
-        <Label Content="{Binding IBANError}" Foreground="Red" Grid.Row="2" Grid.Column="1" 
-               Visibility="{Binding IBANErrorVisibility}"/>
+        <custLib:IbanTextBox Name="IBAN" IbanText="{Binding NewInfo.IBAN, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                             Grid.Column="1" Grid.Row="1" Margin="5"/>
+        
 
         <Label Grid.Row="3" Grid.Column="0" Content="Saved Income" HorizontalAlignment="Left" Margin="5" VerticalAlignment="Center"/>
-        <TextBox Name="Income" Grid.Column="1" Grid.Row="3" 
-         HorizontalAlignment="Stretch" 
-         Text="{Binding NewInfo.SavedIncome, UpdateSourceTrigger=PropertyChanged}" 
-         Margin="5" 
-         TextWrapping="Wrap" 
-         VerticalAlignment="Stretch">
-            <i:Interaction.Triggers>
-                <i:EventTrigger EventName="TextChanged">
-                    <i:InvokeCommandAction Command="{Binding ValidateIncomeCommand}" 
-                                   CommandParameter="{Binding Text, ElementName=Income}"/>
-                </i:EventTrigger>
-            </i:Interaction.Triggers>
-        </TextBox>
+        <custLib:MoneyTextBox Name="Income" Grid.Column="1" Grid.Row="3" Margin="5"
+            MoneyText="{Binding NewInfo.SavedIncome, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+       
 
-        <Label Content="{Binding IncomeError}" Foreground="Red" Grid.Row="4" Grid.Column="1" 
-               Visibility="{Binding IncomeErrorVisibility}"/>
 
         <Label Grid.Row="5" Grid.Column="0" Content="Debt" HorizontalAlignment="Left" Margin="5" VerticalAlignment="Center"/>
-        <TextBox Name="Debt" Grid.Column="1" Grid.Row="5" 
-                 HorizontalAlignment="Stretch" 
-                 Text="{Binding NewInfo.Debt, UpdateSourceTrigger=PropertyChanged}" 
-                 Margin="5" 
-                 TextWrapping="Wrap" 
-                 VerticalAlignment="Stretch"/>
+
+        <custLib:MoneyTextBox Name="Debt" Grid.Column="1" Grid.Row="5" Margin="5"
+                              MoneyText="{Binding NewInfo.Debt, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
         <Label Grid.Row="6" Grid.Column="0" Content="Pin" HorizontalAlignment="Left" Margin="5" VerticalAlignment="Center"/>
-        <TextBox Name="Pin" Grid.Column="1" Grid.Row="6" 
-             HorizontalAlignment="Stretch" 
-             Text="{Binding NewInfo.Pin, UpdateSourceTrigger=PropertyChanged}" 
-             Margin="5" 
-             TextWrapping="Wrap" 
-             VerticalAlignment="Stretch" 
-             Foreground="{Binding PinErrorForeground}">
-            <i:Interaction.Triggers>
-                <i:EventTrigger EventName="TextChanged">
-                    <i:InvokeCommandAction Command="{Binding ValidatePinCommand}" 
-                                   CommandParameter="{Binding Text, ElementName=Pin}"/>
-                </i:EventTrigger>
-            </i:Interaction.Triggers>
-        </TextBox>
-        <Label Content="{Binding PinError}" Foreground="Red" Grid.Row="7" Grid.Column="1" 
-               Visibility="{Binding PinErrorVisibility}"/>
+        <custLib:PinTextBox Name="Pin" Grid.Column="1" Grid.Row="6" PinText="{Binding NewInfo.Pin, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                            Margin="5"/>
+        
 
         <StackPanel Grid.Column="1" Grid.Row="8" Orientation="Horizontal" HorizontalAlignment="Right">
             <Button Content="Save" Command="{Binding SaveBCInfo}" Style="{StaticResource ModernPrimaryButtonStyle}" HorizontalAlignment="Right" Margin="10" Width="100" Height="50" VerticalAlignment="Center"/>

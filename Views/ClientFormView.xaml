@@ -45,6 +45,7 @@
             <Label Content="Name" Grid.Row="3" Grid.Column="0" VerticalAlignment="Center" />
             <custLib:MinLengthTextBox Name="NameBox" MinLength="3"
                                      Text="{Binding NewClient.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                     IsValid="{Binding IsNameValid, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                      Grid.Row="3" Grid.Column="1" Margin="5"/>
 
             <Label Content="Surnames" Grid.Row="5" Grid.Column="0" VerticalAlignment="Center" />

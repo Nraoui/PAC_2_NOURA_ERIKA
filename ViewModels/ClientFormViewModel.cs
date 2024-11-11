@@ -28,6 +28,18 @@ namespace WPF_MVVM_SPA_Template.ViewModels
             }
         }
 
+        private bool _isNameValid;
+        public bool IsNameValid
+        {
+            get { return _isNameValid; }
+            set
+            {
+                _isNameValid = value;
+                OnPropertyChanged();
+                
+            }
+        }
+
         private string? _dniError;
         public string? DniError
         {
@@ -162,11 +174,7 @@ namespace WPF_MVVM_SPA_Template.ViewModels
         // Save client logic
         private void Save()
         {
-            ValidateDni(NewClient?.Dni ?? string.Empty);
-            ValidateName(NewClient?.Name ?? string.Empty);
-            ValidateSurnames(NewClient?.Surnames ?? string.Empty);
-            ValidateEmail(NewClient?.Email ?? string.Empty);
-            ValidatePhoneNumber(NewClient?.PhoneNumber ?? string.Empty);
+            
 
             if (!ValidateClient())
             {
@@ -238,9 +246,7 @@ namespace WPF_MVVM_SPA_Template.ViewModels
 
         private bool ValidateClient()
         {
-            return string.IsNullOrEmpty(DniError) && string.IsNullOrEmpty(NameError) &&
-                   string.IsNullOrEmpty(SurnamesError) && string.IsNullOrEmpty(EmailError) &&
-                   string.IsNullOrEmpty(PhoneNumberError);
+            return IsNameValid;
         }
 
         private void ClearForm()

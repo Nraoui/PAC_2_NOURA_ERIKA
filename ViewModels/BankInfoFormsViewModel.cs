@@ -24,7 +24,7 @@ namespace WPF_MVVM_SPA_Template.ViewModels
 
         public ObservableCollection<Client> AvailableClients { get; set; }
 
-        
+
         private Client? _selectedClient;
         public Client? SelectedClient
         {
@@ -44,97 +44,69 @@ namespace WPF_MVVM_SPA_Template.ViewModels
             set { _newInfo = value; OnPropertyChanged(); }
         }
 
-        private string? _ibanError;
-        public string? IBANError
+        private bool _isPinValid;
+        public bool IsPinValid
         {
-            get { return _ibanError; }
+            get => _isPinValid;
             set
             {
-                _ibanError = value;
+                _isPinValid = value;
                 OnPropertyChanged();
-                OnPropertyChanged(nameof(IBANErrorVisibility));
-                OnPropertyChanged(nameof(IBANErrorVisibility));
+
             }
         }
 
-        private string? _incomeError;
-        public string? IncomeError
+        private bool _isSavedIncomeValid;
+        public bool IsSavedIncomeValid
         {
-            get { return _incomeError; }
+            get => _isSavedIncomeValid;
             set
             {
-                _incomeError = value;
+                _isSavedIncomeValid = value;
                 OnPropertyChanged();
-                OnPropertyChanged(nameof(IncomeErrorVisibility));
+
             }
         }
 
-        private string? _pinError;
-        public string? PinError
+        private bool _isIbanValid;
+        public bool IsIbanValid
         {
-            get { return _pinError; }
+            get => _isIbanValid;
             set
             {
-                _pinError = value;
+                _isIbanValid = value;
                 OnPropertyChanged();
-                OnPropertyChanged(nameof(PinErrorVisibility));
+
+            }
+        }
+
+        private bool _isIncomeValid;
+        public bool IsIncomeValid
+        {
+            get => _isIncomeValid;
+            set
+            {
+                _isIncomeValid = value;
+                OnPropertyChanged();
+
             }
         }
 
 
-        public Visibility IBANErrorVisibility => string.IsNullOrWhiteSpace(IBANError) ? Visibility.Collapsed : Visibility.Visible;
-        public Visibility PinErrorVisibility => string.IsNullOrWhiteSpace(PinError) ? Visibility.Collapsed : Visibility.Visible;
-        public Visibility IncomeErrorVisibility => string.IsNullOrWhiteSpace(IncomeError) ? Visibility.Collapsed : Visibility.Visible;
-        //public Brush PinErrorForeground => PinError == 0 ? Brushes.Black : Brushes.Red;
 
-        
+
+
+
+
         private bool ValidateInfo()
         {
-            bool isValid = true;
-
-            IBANError = string.IsNullOrWhiteSpace(NewInfo?.IBAN) ? "IBAN is obligatory" : null;
-            if (IBANError != null)
-            {
-                isValid = false;
-            }else if (!IsValidIbanFormat(NewInfo.IBAN))
-            {
-                IBANError = "IBAN format is wrong";
-                isValid = false;
-            }
-            PinError = string.IsNullOrWhiteSpace(NewInfo?.Pin) ? "Pin is obligatory" : null;
-            if (PinError != null)
-            {
-                isValid = false;
-            }else if (!IsValidPinFormat(NewInfo.Pin))
-            {
-                PinError = "Pin's format is wrong";
-                isValid = false;
-            }
-            IncomeError = string.IsNullOrWhiteSpace(NewInfo?.SavedIncome) ? "You must add data here!" : null;
-            if (IncomeError != null)
-            {
-                isValid = false;
-            }
 
 
-            return isValid;
-        }
 
-        private bool IsValidIbanFormat(string format)
-        {
-            string pattern = @"^\d{24}$";
-            return Regex.IsMatch(format, pattern);
-        }
-        private bool IsValidPinFormat(string format)
-        {
-            string pattern = @"^\d{4}$";
-            return Regex.IsMatch(format, pattern);
+            return IsPinValid && IsSavedIncomeValid && IsIbanValid && IsIncomeValid;
         }
 
 
-        public ICommand ValidateIBANCommand { get; private set; }
-        public ICommand ValidatePinCommand { get; private set; }
-        public ICommand ValidateIncomeCommand { get; private set; }
 
         public RelayCommand SaveBCInfo { get; set; }
         public RelayCommand CancelBCInfo { get; set; }
@@ -166,37 +138,16 @@ namespace WPF_MVVM_SPA_Template.ViewModels
                 NewInfo = new BankClientInfo();
             }
 
-            ValidateIBANCommand = new RelayCommand(x => ValidateIban((string)x));
-            ValidatePinCommand = new RelayCommand(x => ValidatePin((string)x));
-            ValidateIncomeCommand = new RelayCommand(x => ValidateIncome((string)x));
 
 
             SaveBCInfo = new RelayCommand(x => Save());
             CancelBCInfo = new RelayCommand(x => Cancel());
         }
 
-        private void ValidateIban(string iban)
-        {
-            IBANError = string.IsNullOrWhiteSpace(iban) ? "IBAN is obligatory" : null;
-            if (IBANError == null && !IsValidIbanFormat(iban))
-            {
-                IBANError = "IBAN's format is wrong";
-            }
-        }
-        private void ValidateIncome(string income)
-        {
-            IncomeError = string.IsNullOrWhiteSpace(income) ? "This can not be empty!" : null;
-        }
 
 
-        private void ValidatePin(string pin)
-        {
-            PinError = string.IsNullOrWhiteSpace(pin) ? "PIN is obligatory" : null;
-            if (PinError == null && !IsValidPinFormat(pin))
-            {
-                PinError = "PIN's format is wrong";
-            }
-        }
+
+
 
         private void UpdateSelectedClientInfo()
         {
@@ -260,8 +211,8 @@ namespace WPF_MVVM_SPA_Template.ViewModels
 
             if (result == MessageBoxResult.Yes)
             {
-                ClearForm(); 
-                _mainViewModel.SelectedView = "Option3"; 
+                ClearForm();
+                _mainViewModel.SelectedView = "Option3";
             }
             // If 'No' is clicked, do nothing and remain in the current view.
         }

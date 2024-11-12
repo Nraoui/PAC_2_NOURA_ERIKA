@@ -5,7 +5,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:WPF_MVVM_SPA_Template.Views"
-             xmlns:custLib="clr-namespace:CustomControlsLib;assembly=CustomControlsLib"
+             xmlns:custLib="clr-namespace:CustomControlsLib;assembly=CustomLibraryLib"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid Background="AliceBlue" Margin="10">
@@ -46,24 +46,28 @@
 
         <Label Grid.Row="1" Grid.Column="0" Content="IBAN" HorizontalAlignment="Left" Margin="5" VerticalAlignment="Center"/>
         <custLib:IbanTextBox Name="IBAN" IbanText="{Binding NewInfo.IBAN, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                             Grid.Column="1" Grid.Row="1" Margin="5"/>
-        
+                             IsValid="{Binding IsIbanValid, Mode=TwoWay}" />
+        Grid.Column="1" Grid.Row="1" Margin="5"/>
+
 
         <Label Grid.Row="3" Grid.Column="0" Content="Saved Income" HorizontalAlignment="Left" Margin="5" VerticalAlignment="Center"/>
         <custLib:MoneyTextBox Name="Income" Grid.Column="1" Grid.Row="3" Margin="5"
-            MoneyText="{Binding NewInfo.SavedIncome, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-       
+                              IsValid="{Binding IsIncomeValid, Mode=TwoWay}" />
+        MoneyText="{Binding NewInfo.SavedIncome, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
 
 
         <Label Grid.Row="5" Grid.Column="0" Content="Debt" HorizontalAlignment="Left" Margin="5" VerticalAlignment="Center"/>
 
         <custLib:MoneyTextBox Name="Debt" Grid.Column="1" Grid.Row="5" Margin="5"
-                              MoneyText="{Binding NewInfo.Debt, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                              IsValid="{Binding IsSavedIncomeValid, Mode=TwoWay}" />
+        MoneyText="{Binding NewInfo.Debt, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
         <Label Grid.Row="6" Grid.Column="0" Content="Pin" HorizontalAlignment="Left" Margin="5" VerticalAlignment="Center"/>
-        <custLib:PinTextBox Name="Pin" Grid.Column="1" Grid.Row="6" PinText="{Binding NewInfo.Pin, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+        <custLib:PinTextBox Name="Pin" Grid.Column="1" Grid.Row="6" IsValid="{Binding IsPinValid, Mode=TwoWay}" /> PinText="{Binding NewInfo.Pin, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                             Margin="5"/>
-        
+
+
 
         <StackPanel Grid.Column="1" Grid.Row="8" Orientation="Horizontal" HorizontalAlignment="Right">
             <Button Content="Save" Command="{Binding SaveBCInfo}" Style="{StaticResource ModernPrimaryButtonStyle}" HorizontalAlignment="Right" Margin="10" Width="100" Height="50" VerticalAlignment="Center"/>

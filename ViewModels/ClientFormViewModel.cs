@@ -28,6 +28,17 @@ namespace WPF_MVVM_SPA_Template.ViewModels
             }
         }
 
+        private bool _isSurnameValid;
+        public bool IsSurnameValid
+        {
+            get { return _isSurnameValid; }
+            set
+            {
+                _isSurnameValid = value;
+                OnPropertyChanged();
+            }
+        }
+
         private bool _isNameValid;
         public bool IsNameValid
         {
@@ -36,102 +47,47 @@ namespace WPF_MVVM_SPA_Template.ViewModels
             {
                 _isNameValid = value;
                 OnPropertyChanged();
-                
             }
         }
 
-        private string? _dniError;
-        public string? DniError
+        private bool _isPhoneNumberValid;
+        public bool IsPhoneNumberValid
         {
-            get { return _dniError; }
+            get { return _isPhoneNumberValid; }
             set
             {
-                _dniError = value;
+                _isPhoneNumberValid = value;
                 OnPropertyChanged();
-                OnPropertyChanged(nameof(DniErrorVisibility));
             }
         }
 
-        private string? _nameError;
-        public string? NameError
+        private bool _isDniValid;
+        public bool IsDniValid
         {
-            get { return _nameError; }
+            get => _isDniValid;
             set
             {
-                _nameError = value;
+                _isDniValid = value;
                 OnPropertyChanged();
-                OnPropertyChanged(nameof(NameErrorVisibility));
+
             }
         }
 
-        private string? _surnamesError;
-        public string? SurnamesError
+        private bool _isEmailValid;
+        public bool IsEmailValid
         {
-            get { return _surnamesError; }
+            get => _isEmailValid;
             set
             {
-                _surnamesError = value;
+                _isEmailValid = value;
                 OnPropertyChanged();
-                OnPropertyChanged(nameof(SurnamesErrorVisibility));
             }
         }
 
-        private string? _emailError;
-        public string? EmailError
-        {
-            get { return _emailError; }
-            set
-            {
-                _emailError = value;
-                OnPropertyChanged();
-                OnPropertyChanged(nameof(EmailErrorVisibility));
-            }
-        }
 
-        private string? _phoneNumberError;
-        public string? PhoneNumberError
-        {
-            get { return _phoneNumberError; }
-            set
-            {
-                _phoneNumberError = value;
-                OnPropertyChanged();
-                OnPropertyChanged(nameof(PhoneNumberErrorVisibility));
-            }
-        }
 
-        public Visibility DniErrorVisibility => string.IsNullOrWhiteSpace(DniError) ? Visibility.Collapsed : Visibility.Visible;
-        public Visibility NameErrorVisibility => string.IsNullOrWhiteSpace(NameError) ? Visibility.Collapsed : Visibility.Visible;
-        public Visibility SurnamesErrorVisibility => string.IsNullOrWhiteSpace(SurnamesError) ? Visibility.Collapsed : Visibility.Visible;
-        public Visibility EmailErrorVisibility => string.IsNullOrWhiteSpace(EmailError) ? Visibility.Collapsed : Visibility.Visible;
-        public Visibility PhoneNumberErrorVisibility => string.IsNullOrWhiteSpace(PhoneNumberError) ? Visibility.Collapsed : Visibility.Visible;
 
-        // Validation methods
-        
-        private bool IsValidEmail(string email)
-        {
-            string pattern = @"^[^@\s]+@[^@\s]+\.[^@\s]+$";
-            return Regex.IsMatch(email, pattern);
-        }
 
-        private bool IsValidDniFormat(string dni)
-        {
-            string dniPattern = @"^\d{8}[A-Za-z]$";
-            return Regex.IsMatch(dni, dniPattern);
-        }
-
-        private bool IsValidPhoneNumber(string phoneNumber)
-        {
-            string phonePattern = @"^\d{9}$";
-            return Regex.IsMatch(phoneNumber, phonePattern);
-        }
-
-        // ICommand properties
-        public ICommand ValidateDniCommand { get; private set; }
-        public ICommand ValidateNameCommand { get; private set; }
-        public ICommand ValidateSurnamesCommand { get; private set; }
-        public ICommand ValidateEmailCommand { get; private set; }
-        public ICommand ValidatePhoneNumberCommand { get; private set; }
 
         public RelayCommand SaveCommand { get; set; }
         public RelayCommand CancelCommand { get; set; }
@@ -160,12 +116,7 @@ namespace WPF_MVVM_SPA_Template.ViewModels
                 NewClient = new Client { Id = GetNextClientId() };
             }
 
-            // Initialize commands
-            ValidateDniCommand = new RelayCommand(x => ValidateDni((string)x));
-            ValidateNameCommand = new RelayCommand(x => ValidateName((string)x));
-            ValidateSurnamesCommand = new RelayCommand(x => ValidateSurnames((string)x));
-            ValidateEmailCommand = new RelayCommand(x => ValidateEmail((string)x));
-            ValidatePhoneNumberCommand = new RelayCommand(x => ValidatePhoneNumber((string)x));
+
 
             SaveCommand = new RelayCommand(x => Save());
             CancelCommand = new RelayCommand(x => Cancel());
@@ -174,7 +125,7 @@ namespace WPF_MVVM_SPA_Template.ViewModels
         // Save client logic
         private void Save()
         {
-            
+
 
             if (!ValidateClient())
             {
@@ -199,54 +150,10 @@ namespace WPF_MVVM_SPA_Template.ViewModels
             ClearForm();
         }
 
-        private void ValidateDni(string dni)
-        {
-            DniError = string.IsNullOrWhiteSpace(dni) ? "El camp DNI és obligatori." : null;
-            if (DniError == null && !IsValidDniFormat(dni))
-            {
-                DniError = "El format del DNI és incorrecte.";
-            }
-        }
-
-        private void ValidateName(string name)
-        {
-            NameError = string.IsNullOrWhiteSpace(name) ? "El camp Name és obligatori." : null;
-            if (NameError == null && name.Length < 3)
-            {
-                NameError = "El nom ha de tenir al menys 3 caràcters.";
-            }
-        }
-
-        private void ValidateSurnames(string surnames)
-        {
-            SurnamesError = string.IsNullOrWhiteSpace(surnames) ? "El camp Surnames és obligatori." : null;
-            if (SurnamesError == null && surnames.Length < 3)
-            {
-                SurnamesError = "Els cognoms han de tenir al menys 3 caràcters.";
-            }
-        }
-
-        private void ValidateEmail(string email)
-        {
-            EmailError = string.IsNullOrWhiteSpace(email) ? "El camp Email és obligatori." : null;
-            if (EmailError == null && !IsValidEmail(email))
-            {
-                EmailError = "El format de l'email és incorrecte.";
-            }
-        }
-
-        private void ValidatePhoneNumber(string phoneNumber)
-        {
-            PhoneNumberError = string.IsNullOrWhiteSpace(phoneNumber) ? "El camp PhoneNumber és obligatori." : null;
-            if (PhoneNumberError == null && !IsValidPhoneNumber(phoneNumber))
-            {
-                PhoneNumberError = "El número de telèfon ha de tenir exactament 9 dígits.";
-            }
-        }
 
         private bool ValidateClient()
         {
-            return IsNameValid;
+            return IsNameValid && IsPhoneNumberValid && IsSurnameValid && IsDniValid && IsEmailValid;
         }
 
         private void ClearForm()

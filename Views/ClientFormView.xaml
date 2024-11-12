@@ -5,7 +5,7 @@
                  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
                  xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
                  xmlns:local="clr-namespace:WPF_MVVM_SPA_Template.Views"
-                 xmlns:custLib="clr-namespace:CustomControlsLib;assembly=CustomControlsLib"
+                 xmlns:custLib="clr-namespace:CustomControlsLib;assembly=CustomLibraryLib"
                  mc:Ignorable="d" 
                  d:DesignHeight="450" d:DesignWidth="800">
     
@@ -38,35 +38,38 @@
             <Label Content="ID" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center"/>
             <Label Content="{Binding NewClient.Id, Mode=TwoWay}" Grid.Row="0" Grid.Column="1" Margin="5"/>
 
-            <Label Content="Dni" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" />
+        <Label Content="Dni" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" />
         <custLib:DniTextBox Name="Dni" DniText="{Binding NewClient.Dni, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                            IsValid="{Binding IsDniValid, Mode=TwoWay}"
               Grid.Row="1" Grid.Column="1" Margin="5"/>
-        
-            <Label Content="Name" Grid.Row="3" Grid.Column="0" VerticalAlignment="Center" />
-            <custLib:MinLengthTextBox Name="NameBox" MinLength="3"
+
+        <Label Content="Name" Grid.Row="3" Grid.Column="0" VerticalAlignment="Center" />
+        <custLib:MinLengthTextBox Name="NameBox" MinLength="3"
+                                     IsValid="{Binding IsNameValid, Mode=TwoWay}"
                                      Text="{Binding NewClient.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                     IsValid="{Binding IsNameValid, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                      Grid.Row="3" Grid.Column="1" Margin="5"/>
 
-            <Label Content="Surnames" Grid.Row="5" Grid.Column="0" VerticalAlignment="Center" />
+        <Label Content="Surnames" Grid.Row="5" Grid.Column="0" VerticalAlignment="Center" />
         <custLib:MinLengthTextBox Name="Surname" MinLength="3"
                           Text="{Binding NewClient.Surnames, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                          IsValid="{Binding IsSurnameValid, Mode=TwoWay}"
                           Grid.Row="5" Grid.Column="1" Margin="5"/>
-        
-        
-            <Label Content="Email" Grid.Row="7" Grid.Column="0" VerticalAlignment="Center" />
+
+
+        <Label Content="Email" Grid.Row="7" Grid.Column="0" VerticalAlignment="Center" />
         <custLib:EmailTextBox Name="Email" EmailText="{Binding NewClient.Email, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                              IsValid="{Binding IsEmailValid, Mode=TwoWay}"
                      Grid.Row="7" Grid.Column="1" Margin="5"/>
 
 
-        
-            <Label Content="Phone Number" Grid.Row="9" Grid.Column="0" VerticalAlignment="Center" />
-        <custLib:PhoneMaskTextBox Name="PhoneNumber" Mask="+34 ### ### ###"  PhoneNumber="{Binding NewClient.PhoneNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+
+        <Label Content="Phone Number" Grid.Row="9" Grid.Column="0" VerticalAlignment="Center" />
+        <custLib:PhoneMaskTextBox Name="PhoneNumber" Mask="+34 ### ### ###"  IsValid="{Binding IsPhoneNumberValid, Mode=TwoWay}" PhoneNumber="{Binding NewClient.PhoneNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
                              Grid.Row="9" Grid.Column="1" Margin="5"/>
 
 
-       
-            <Label Content="Regestration Date" Grid.Row="11" Grid.Column="0" VerticalAlignment="Center" />
+
+        <Label Content="Regestration Date" Grid.Row="11" Grid.Column="0" VerticalAlignment="Center" />
             <DatePicker SelectedDate="{Binding NewClient.RegestrationDate, Mode=TwoWay}" 
                         Grid.Row="11" Grid.Column="1" Margin="5" />
 

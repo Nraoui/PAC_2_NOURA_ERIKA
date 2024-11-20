@@ -1,4 +1,7 @@
-﻿using System.Collections.ObjectModel;
+﻿using FastReport;
+using FastReport.Data;
+using FastReport.Export.PdfSimple;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
 using System.Runtime.CompilerServices;
@@ -35,6 +38,7 @@ namespace WPF_MVVM_SPA_Template.ViewModels
         public RelayCommand ExportToJsonCommand { get; set; }
         public RelayCommand LoadFromJsonCommand { get; set; }
         public RelayCommand ViewPerformanceCommand { get; set; }
+        public RelayCommand ExportToPdfCommand { get; set; }
 
 
 
@@ -44,6 +48,7 @@ namespace WPF_MVVM_SPA_Template.ViewModels
         {
             _mainViewModel = mainViewModel;
             // Carreguem cursos a memòria mode de prova
+
             Clients.Add(new Client { Id = 1, Dni = "Y9456786L", Name = "Jordi", Surnames = "Soler ", Email = "jordi.soler@gmail.com", PhoneNumber = "612354687", RegestrationDate = new DateTime(2024, 3, 12) });
             Clients.Add(new Client { Id = 2, Dni = "X4578969W", Name = "Laia", Surnames = "Pujol ", Email = "laia.pujol@gmail.com", PhoneNumber = "613456895", RegestrationDate = new DateTime(2024, 4, 23) });
             Clients.Add(new Client { Id = 3, Dni = "L4589621O", Name = "Marc", Surnames = "Torres ", Email = "marc.torres@gmail.com", PhoneNumber = "613245697", RegestrationDate = new DateTime(2024, 5, 2) });
@@ -52,6 +57,13 @@ namespace WPF_MVVM_SPA_Template.ViewModels
             Clients.Add(new Client { Id = 6, Dni = "R4598623U", Name = "Núria", Surnames = "López ", Email = "nuria.lopez@gmail.com", PhoneNumber = "613456217", RegestrationDate = new DateTime(2024, 8, 26) });
             LoadFromJson();
 
+            
+
+
+
+
+
+
             // Inicialitzem els diferents commands disponibles (accions)
             AddClientCommand = new RelayCommand(x => AddClient());
             DelClientCommand = new RelayCommand(x => DelClient());
@@ -59,9 +71,76 @@ namespace WPF_MVVM_SPA_Template.ViewModels
             ExportToJsonCommand = new RelayCommand(x => SaveToJson());
             LoadFromJsonCommand = new RelayCommand(x => LoadFromJson());
             ViewPerformanceCommand = new RelayCommand(x => ViewPerformance());
+            ExportToPdfCommand = new RelayCommand(x => ExportToPdf());
 
 
         }
+
+        private void ExportToPdf()
+        {
+            try
+            {
+                // Load the FastReport template
+                Report report = new Report();
+                string filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\..\Data\ClientsReport.frx");
+                filePath = Path.GetFullPath(filePath);
+                report.Load(filePath);
+
+                // Register the client data as an in-memory data source
+                report.RegisterData(Clients, "Data");
+
+                // Enable the data source in the report
+                DataSourceBase dataSource = report.GetDataSource("Data");
+                if (dataSource != null)
+                {
+                    dataSource.Enabled = true;
+                }
+                else
+                {
+                    throw new Exception("Failed to find data source 'Clients' in the report.");
+                }
+                // Vinculem el DataSource a la banda de dades
+                DataBand? dataBand = report.FindObject("Data1") as DataBand;
+                if (dataBand != null)
+                {
+                    dataBand.DataSource = dataSource;
+                }
+
+
+                // Prepare the report
+                report.Prepare();
+
+                // Export the report to a PDF
+                string pdfFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\..\Data\ClientsReport.pdf");
+                pdfFilePath = Path.GetFullPath(pdfFilePath);
+
+                using (MemoryStream ms = new MemoryStream())
+                {
+                    PDFSimpleExport pdfExport = new PDFSimpleExport();
+                    report.Export(pdfExport, ms);
+                    File.WriteAllBytes(pdfFilePath, ms.ToArray());
+                }
+
+                // Dispose of the report to free resources
+                report.Dispose();
+
+                // Notify the user of success
+                MessageBox.Show($"Report successfully exported to PDF: {pdfFilePath}", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+
+                // Open the PDF using the system's default viewer
+                System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo
+                {
+                    FileName = pdfFilePath,
+                    UseShellExecute = true
+                });
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Failed to export to PDF: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                
+            }
+        }
+
 
         private void ViewPerformance()
         {
@@ -112,19 +191,32 @@ namespace WPF_MVVM_SPA_Template.ViewModels
 
         private void SaveToJson()
         {
-            var options = new JsonSerializerOptions { WriteIndented = true };
-            var jsonData = JsonSerializer.Serialize(Clients, options);
+            try
+            {
+                // Serialize the data with indentation for readability
+                var options = new JsonSerializerOptions { WriteIndented = true };
+                var jsonData = JsonSerializer.Serialize(Clients, options);
 
-            // Specify the file path
-            var filePath = "ClientsData.json";
-            File.WriteAllText(filePath, jsonData);
+                var filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\..\Data\ClientsData.json");
+                filePath = Path.GetFullPath(filePath);
+                
+                // Write JSON data to the file
+                File.WriteAllText(filePath, jsonData);
 
-            MessageBox.Show("Data saved to JSON successfully!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show("Data saved to JSON successfully!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            catch (Exception ex)
+            {
+                // Handle any exceptions and notify the user
+                MessageBox.Show($"Failed to save data: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         private void LoadFromJson()
         {
-            var filePath = "ClientsData.json";
+            var filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\..\Data\ClientsData.json");
+            filePath = Path.GetFullPath(filePath);
+
             if (File.Exists(filePath))
             {
                 var jsonData = File.ReadAllText(filePath);

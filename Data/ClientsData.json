@@ -1,0 +1,47 @@
+[
+  {
+    "Id": 1,
+    "Dni": "Y9456786L",
+    "Name": "Jordi",
+    "Surnames": "Soler ",
+    "Email": "jordi.soler@gmail.com",
+    "PhoneNumber": "612354687",
+    "RegestrationDate": "2024-03-12T00:00:00"
+  },
+  {
+    "Id": 2,
+    "Dni": "X4578969W",
+    "Name": "Laia",
+    "Surnames": "Pujol ",
+    "Email": "laia.pujol@gmail.com",
+    "PhoneNumber": "613456895",
+    "RegestrationDate": "2024-04-23T00:00:00"
+  },
+  {
+    "Id": 4,
+    "Dni": "N4589623M",
+    "Name": "Anna",
+    "Surnames": "Garcia ",
+    "Email": "anna.garcia@gmail.com",
+    "PhoneNumber": "612456321",
+    "RegestrationDate": "2024-06-30T00:00:00"
+  },
+  {
+    "Id": 5,
+    "Dni": "M1235987P",
+    "Name": "Oriol",
+    "Surnames": "Marti ",
+    "Email": "oriol.marti@gmail.com",
+    "PhoneNumber": "613249562",
+    "RegestrationDate": "2024-07-14T00:00:00"
+  },
+  {
+    "Id": 6,
+    "Dni": "65478965Q",
+    "Name": "Name",
+    "Surnames": "Surname",
+    "Email": "email@example.com",
+    "PhoneNumber": "654987456",
+    "RegestrationDate": "2024-11-18T00:00:00+01:00"
+  }
+]

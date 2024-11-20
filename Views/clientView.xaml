@@ -55,6 +55,13 @@
             <Button Content="Check Preformance" Command="{Binding ViewPerformanceCommand}" 
                     IsEnabled="{Binding SelectedClient}" Margin="5" Padding="10,5" Style="{StaticResource ModernPrimaryButtonStyle}" />
             <Button Content="Export to JSON" Command="{Binding ExportToJsonCommand}" Margin="5" Padding="10,5" Style="{DynamicResource ModernSideButtonStyle }"/>
+
+            <Button  Command="{Binding ExportToPdfCommand}" Margin="5" Padding="10,5" 
+                        Style="{DynamicResource ModernPrimaryButtonStyle}" >
+                <Button.Content>
+                    <Image Source="../Images/pdf17.png" Width="20"/>
+                </Button.Content>
+            </Button>
         </StackPanel>
 
 

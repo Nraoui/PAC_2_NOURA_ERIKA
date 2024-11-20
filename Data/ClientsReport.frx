@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report ScriptLanguage="CSharp" ReportInfo.Created="11/18/2024 15:21:43" ReportInfo.Modified="11/18/2024 17:50:59" ReportInfo.CreatorVersion="2025.1.0.0">
+  <Styles>
+    <Style Name="Style1" Fill.Color="222, 242, 245" Font="Arial, 10pt"/>
+    <Style Name="Style2" Font="Arial, 10pt"/>
+  </Styles>
+  <Dictionary>
+    <JsonDataConnection Name="Connection" ConnectionString="rijcmlqXeHZQomYmoRg76joXu86WHXeJTogyIERLWbwZ8G8PhlQM+PxA5fIOv+SXCWtqgbhJGL9yPxLA8d+zl3iCWCbZw==">
+      <TableDataSource Name="Data" DataType="System.Int32" Enabled="true" TableName="Data">
+        <Column Name="Id" DataType="System.Int32"/>
+        <Column Name="Dni" DataType="System.String"/>
+        <Column Name="Name" DataType="System.String"/>
+        <Column Name="Surnames" DataType="System.String"/>
+        <Column Name="Email" DataType="System.String"/>
+        <Column Name="PhoneNumber" DataType="System.String"/>
+        <Column Name="RegestrationDate" DataType="System.DateTime"/>
+      </TableDataSource>
+    </JsonDataConnection>
+  </Dictionary>
+  <ReportPage Name="Page1" Watermark.Font="Arial, 60pt">
+    <ReportTitleBand Name="ReportTitle1" Width="718.2" Height="75.6">
+      <TextObject Name="Text1" Left="283.5" Top="9.45" Width="141.75" Height="37.8" Text="Client List" Font="Times New Roman, 20pt, style=Bold"/>
+    </ReportTitleBand>
+    <PageHeaderBand Name="PageHeader1" Top="79.6" Width="718.2" Height="28.35">
+      <TextObject Name="Text2" Width="103.95" Height="18.9" Fill.Color="0, 0, 100" Text="DNI" Font="Arial Black, 10pt, style=Bold" TextFill.Color="White"/>
+      <TextObject Name="Text3" Left="103.95" Width="198.45" Height="18.9" Fill.Color="0, 0, 100" Text="Client" Font="Arial Black, 10pt, style=Bold" TextFill.Color="White"/>
+      <TextObject Name="Text4" Left="302.4" Width="198.45" Height="18.9" Fill.Color="0, 0, 100" Text="Email" Font="Arial Black, 10pt, style=Bold" TextFill.Color="White"/>
+      <TextObject Name="Text5" Left="500.85" Width="132.3" Height="18.9" Fill.Color="0, 0, 100" Text="Phone Number" Font="Arial Black, 10pt, style=Bold" TextFill.Color="White"/>
+      <TextObject Name="Text6" Left="633.15" Width="94.5" Height="18.9" Fill.Color="0, 0, 100" Text="Data Entry" Font="Arial Black, 10pt, style=Bold" TextFill.Color="White"/>
+    </PageHeaderBand>
+    <DataBand Name="Data1" Top="111.95" Width="718.2" Height="37.8" DataSource="Data">
+      <TextObject Name="Text7" Top="9.45" Width="103.95" Height="18.9" EvenStyle="Style1" Text="[Data.Dni]" Font="Arial, 10pt"/>
+      <TextObject Name="Text8" Left="103.95" Top="9.45" Width="56.7" Height="18.9" EvenStyle="Style1" Text="[Data.Surnames]" Font="Arial, 10pt"/>
+      <TextObject Name="Text9" Left="160.65" Top="9.45" Width="141.75" Height="18.9" EvenStyle="Style1" Text="[Data.Name]" Font="Arial, 10pt"/>
+      <TextObject Name="Text10" Left="302.4" Top="9.45" Width="198.45" Height="18.9" EvenStyle="Style1" Text="[Data.Email]" Font="Arial, 10pt"/>
+      <TextObject Name="Text11" Left="481.95" Top="9.45" Width="170.1" Height="18.9" EvenStyle="Style1" Text="[Data.PhoneNumber]" HorzAlign="Center" Font="Arial, 10pt"/>
+      <TextObject Name="Text12" Left="652.05" Top="9.45" Width="75.6" Height="18.9" EvenStyle="Style1" Text="[Data.RegestrationDate]" Format="Date" Format.Format="d" Font="Arial, 10pt"/>
+      <LineObject Name="Line1" Left="283.5" Top="37.8" Height="-37.8" Border.Color="222, 242, 245"/>
+      <LineObject Name="Line3" Left="85.05" Top="37.8" Height="-37.8" Border.Color="222, 242, 245"/>
+      <LineObject Name="Line4" Left="491.4" Top="37.8" Height="-37.8" Border.Color="222, 242, 245"/>
+      <LineObject Name="Line5" Left="642.6" Top="37.8" Height="-37.8" Border.Color="222, 242, 245"/>
+      <Sort>
+        <Sort Expression="[Data.RegestrationDate]"/>
+        <Sort Expression="[Data.Surnames]"/>
+      </Sort>
+    </DataBand>
+    <PageFooterBand Name="PageFooter1" Top="153.75" Width="718.2" Height="18.9"/>
+  </ReportPage>
+</Report>

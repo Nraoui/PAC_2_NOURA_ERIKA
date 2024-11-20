@@ -16,9 +16,15 @@
     <None Remove="Images\ChangeTheme.png" />
     <None Remove="Images\info_black.png" />
     <None Remove="Images\info_white.png" />
+    <None Remove="Images\pdf17.png" />
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="FastReport.Data.Json" Version="2025.1.0" />
+    <PackageReference Include="FastReport.Data.MsSql" Version="2025.1.0" />
+    <PackageReference Include="FastReport.Data.MySql" Version="2025.1.0" />
+    <PackageReference Include="FastReport.OpenSource" Version="2025.1.0" />
+    <PackageReference Include="FastReport.OpenSource.Export.PdfSimple" Version="2025.1.0" />
     <PackageReference Include="LiveCharts.Wpf.Core" Version="0.9.8" />
     <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.135" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
@@ -37,6 +43,11 @@
     <Resource Include="Images\ChangeTheme.png" />
     <Resource Include="Images\info_black.png" />
     <Resource Include="Images\info_white.png" />
+    <Resource Include="Images\pdf17.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Data\" />
   </ItemGroup>
 
 </Project>

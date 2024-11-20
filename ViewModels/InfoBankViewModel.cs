@@ -60,7 +60,8 @@ namespace WPF_MVVM_SPA_Template.ViewModels
             var jsonData = JsonSerializer.Serialize(BankClientInfo, options);
 
             // Specify the file path
-            var filePath = "BankClientInfo.json";
+            var filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\..\Data\BankClientInfo.json");
+            filePath = Path.GetFullPath(filePath);
             File.WriteAllText(filePath, jsonData);
 
             MessageBox.Show("Data saved to JSON successfully!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
@@ -68,7 +69,8 @@ namespace WPF_MVVM_SPA_Template.ViewModels
 
         private void LoadFromJson()
         {
-            var filePath = "BankClientInfo.json";
+            var filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\..\Data\BankClientInfo.json");
+            filePath = Path.GetFullPath(filePath);
             if (File.Exists(filePath))
             {
                 var jsonData = File.ReadAllText(filePath);

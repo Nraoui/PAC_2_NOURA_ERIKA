@@ -46,8 +46,4 @@
     <Resource Include="Images\pdf17.png" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Data\" />
-  </ItemGroup>
-
 </Project>

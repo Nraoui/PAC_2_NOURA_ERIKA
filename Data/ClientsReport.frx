@@ -1,22 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Report ScriptLanguage="CSharp" ReportInfo.Created="11/18/2024 15:21:43" ReportInfo.Modified="11/20/2024 18:50:44" ReportInfo.CreatorVersion="2025.1.0.0">
+<Report ScriptLanguage="CSharp" ReportInfo.Created="11/18/2024 15:21:43" ReportInfo.Modified="11/20/2024 19:50:09" ReportInfo.CreatorVersion="2025.1.0.0">
   <Styles>
     <Style Name="Style1" Fill.Color="222, 242, 245" Font="Arial, 10pt"/>
     <Style Name="Style2" Font="Arial, 10pt"/>
   </Styles>
-  <Dictionary>
-    <JsonDataConnection Name="Data" ConnectionString="rijcmlqXeHZQomYmoRg76joXu86WHXeJTogyIERLWbwZ8G8PhlQM+PxA5fIOv+SXCWtqgbhXl7wxVnlNL/lmEwXYI/Klw==">
-      <TableDataSource Name="Data" DataType="System.Int32" Enabled="true" TableName="Data">
-        <Column Name="Id" DataType="System.Int32"/>
-        <Column Name="Dni" DataType="System.String"/>
-        <Column Name="Name" DataType="System.String"/>
-        <Column Name="Surnames" DataType="System.String"/>
-        <Column Name="Email" DataType="System.String"/>
-        <Column Name="PhoneNumber" DataType="System.String"/>
-        <Column Name="RegestrationDate" DataType="System.DateTime"/>
-      </TableDataSource>
-    </JsonDataConnection>
-  </Dictionary>
+  <Dictionary/>
   <ReportPage Name="Page1" Watermark.Font="Arial, 60pt">
     <ReportTitleBand Name="ReportTitle1" Width="718.2" Height="75.6">
       <TextObject Name="Text1" Left="283.5" Top="9.45" Width="141.75" Height="37.8" Text="Client List" Font="Times New Roman, 20pt, style=Bold"/>

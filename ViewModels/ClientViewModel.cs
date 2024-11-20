@@ -80,59 +80,122 @@ namespace WPF_MVVM_SPA_Template.ViewModels
         {
             try
             {
-                // Load the FastReport template
-                Report report = new Report();
-                string filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\..\Data\ClientsReport.frx");
-                filePath = Path.GetFullPath(filePath);
-                report.Load(filePath);
 
-                // Register the client data as an in-memory data source
-                report.RegisterData(Clients, "Data");
-
-                // Enable the data source in the report
-                DataSourceBase dataSource = report.GetDataSource("Data");
-                if (dataSource != null)
+                if (SelectedClient != null)
                 {
-                    dataSource.Enabled = true;
+                    // Load the FastReport template
+                    Report report = new Report();
+                    string filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\..\Data\ClientReport.frx");
+                    filePath = Path.GetFullPath(filePath);
+                    report.Load(filePath);
+
+                    // Register the client data as an in-memory data source
+                    report.RegisterData(Clients, "Data2");
+
+                    // Add a parameter to the report to filter by the selected client ID
+                    report.SetParameterValue("ClientId", SelectedClient.Id);
+
+                    // Enable the data source in the report
+                    DataSourceBase dataSource = report.GetDataSource("Data2");
+                    if (dataSource != null)
+                    {
+                        dataSource.Enabled = true;
+                    }
+                    else
+                    {
+                        throw new Exception("Failed to find data source 'Clients' in the report.");
+                    }
+                    // Vinculem el DataSource a la banda de dades
+                    DataBand? dataBand = report.FindObject("Data1") as DataBand;
+                    if (dataBand != null)
+                    {
+                        dataBand.DataSource = dataSource;
+                    }
+
+
+                    // Prepare the report
+                    report.Prepare();
+
+                    // Export the report to a PDF
+                    string pdfFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\..\Data\ClientReport.pdf");
+                    pdfFilePath = Path.GetFullPath(pdfFilePath);
+
+                    using (MemoryStream ms = new MemoryStream())
+                    {
+                        PDFSimpleExport pdfExport = new PDFSimpleExport();
+                        report.Export(pdfExport, ms);
+                        File.WriteAllBytes(pdfFilePath, ms.ToArray());
+                    }
+
+                    // Dispose of the report to free resources
+                    report.Dispose();
+
+                    // Notify the user of success
+                    MessageBox.Show($"Report successfully exported to PDF: {pdfFilePath}", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+
+                    // Open the PDF using the system's default viewer
+                    System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo
+                    {
+                        FileName = pdfFilePath,
+                        UseShellExecute = true
+                    });
                 }
-                else
-                {
-                    throw new Exception("Failed to find data source 'Clients' in the report.");
+                else { 
+
+                    // Load the FastReport template
+                    Report report = new Report();
+                    string filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\..\Data\ClientsReport.frx");
+                    filePath = Path.GetFullPath(filePath);
+                    report.Load(filePath);
+
+                    // Register the client data as an in-memory data source
+                    report.RegisterData(Clients, "Data");
+
+                    // Enable the data source in the report
+                    DataSourceBase dataSource = report.GetDataSource("Data");
+                    if (dataSource != null)
+                    {
+                        dataSource.Enabled = true;
+                    }
+                    else
+                    {
+                        throw new Exception("Failed to find data source 'Clients' in the report.");
+                    }
+                    // Vinculem el DataSource a la banda de dades
+                    DataBand? dataBand = report.FindObject("Data1") as DataBand;
+                    if (dataBand != null)
+                    {
+                        dataBand.DataSource = dataSource;
+                    }
+
+
+                    // Prepare the report
+                    report.Prepare();
+
+                    // Export the report to a PDF
+                    string pdfFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\..\Data\ClientsReport.pdf");
+                    pdfFilePath = Path.GetFullPath(pdfFilePath);
+
+                    using (MemoryStream ms = new MemoryStream())
+                    {
+                        PDFSimpleExport pdfExport = new PDFSimpleExport();
+                        report.Export(pdfExport, ms);
+                        File.WriteAllBytes(pdfFilePath, ms.ToArray());
+                    }
+
+                    // Dispose of the report to free resources
+                    report.Dispose();
+
+                    // Notify the user of success
+                    MessageBox.Show($"Report successfully exported to PDF: {pdfFilePath}", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+
+                    // Open the PDF using the system's default viewer
+                    System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo
+                    {
+                        FileName = pdfFilePath,
+                        UseShellExecute = true
+                    });
                 }
-                // Vinculem el DataSource a la banda de dades
-                DataBand? dataBand = report.FindObject("Data1") as DataBand;
-                if (dataBand != null)
-                {
-                    dataBand.DataSource = dataSource;
-                }
-
-
-                // Prepare the report
-                report.Prepare();
-
-                // Export the report to a PDF
-                string pdfFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\..\Data\ClientsReport.pdf");
-                pdfFilePath = Path.GetFullPath(pdfFilePath);
-
-                using (MemoryStream ms = new MemoryStream())
-                {
-                    PDFSimpleExport pdfExport = new PDFSimpleExport();
-                    report.Export(pdfExport, ms);
-                    File.WriteAllBytes(pdfFilePath, ms.ToArray());
-                }
-
-                // Dispose of the report to free resources
-                report.Dispose();
-
-                // Notify the user of success
-                MessageBox.Show($"Report successfully exported to PDF: {pdfFilePath}", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
-
-                // Open the PDF using the system's default viewer
-                System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo
-                {
-                    FileName = pdfFilePath,
-                    UseShellExecute = true
-                });
             }
             catch (Exception ex)
             {

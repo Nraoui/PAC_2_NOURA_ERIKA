@@ -1,11 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Report ScriptLanguage="CSharp" ReportInfo.Created="11/18/2024 15:21:43" ReportInfo.Modified="11/18/2024 17:50:59" ReportInfo.CreatorVersion="2025.1.0.0">
+<Report ScriptLanguage="CSharp" ReportInfo.Created="11/18/2024 15:21:43" ReportInfo.Modified="11/20/2024 18:50:44" ReportInfo.CreatorVersion="2025.1.0.0">
   <Styles>
     <Style Name="Style1" Fill.Color="222, 242, 245" Font="Arial, 10pt"/>
     <Style Name="Style2" Font="Arial, 10pt"/>
   </Styles>
   <Dictionary>
-    <JsonDataConnection Name="Connection" ConnectionString="rijcmlqXeHZQomYmoRg76joXu86WHXeJTogyIERLWbwZ8G8PhlQM+PxA5fIOv+SXCWtqgbhJGL9yPxLA8d+zl3iCWCbZw==">
+    <JsonDataConnection Name="Data" ConnectionString="rijcmlqXeHZQomYmoRg76joXu86WHXeJTogyIERLWbwZ8G8PhlQM+PxA5fIOv+SXCWtqgbhXl7wxVnlNL/lmEwXYI/Klw==">
       <TableDataSource Name="Data" DataType="System.Int32" Enabled="true" TableName="Data">
         <Column Name="Id" DataType="System.Int32"/>
         <Column Name="Dni" DataType="System.String"/>
@@ -28,7 +28,7 @@
       <TextObject Name="Text5" Left="500.85" Width="132.3" Height="18.9" Fill.Color="0, 0, 100" Text="Phone Number" Font="Arial Black, 10pt, style=Bold" TextFill.Color="White"/>
       <TextObject Name="Text6" Left="633.15" Width="94.5" Height="18.9" Fill.Color="0, 0, 100" Text="Data Entry" Font="Arial Black, 10pt, style=Bold" TextFill.Color="White"/>
     </PageHeaderBand>
-    <DataBand Name="Data1" Top="111.95" Width="718.2" Height="37.8" DataSource="Data">
+    <DataBand Name="Data1" Top="111.95" Width="718.2" Height="37.8">
       <TextObject Name="Text7" Top="9.45" Width="103.95" Height="18.9" EvenStyle="Style1" Text="[Data.Dni]" Font="Arial, 10pt"/>
       <TextObject Name="Text8" Left="103.95" Top="9.45" Width="56.7" Height="18.9" EvenStyle="Style1" Text="[Data.Surnames]" Font="Arial, 10pt"/>
       <TextObject Name="Text9" Left="160.65" Top="9.45" Width="141.75" Height="18.9" EvenStyle="Style1" Text="[Data.Name]" Font="Arial, 10pt"/>
